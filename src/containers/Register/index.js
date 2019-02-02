@@ -45,7 +45,8 @@ const styles = theme => ({
   },
   registerLink: {
     textDecoration: "none",
-    display: "block"
+    display: "block",
+    padding: "20px 0"
   }
 });
 
@@ -102,7 +103,7 @@ function SignIn(props) {
               id="confirmPassword"
             />
           </FormControl>
-          <Link className={classes.loginLink} to="/login">
+          <Link className={classes.registerLink} to="/login">
             Already Have an Account? Sign in
           </Link>
           <Button

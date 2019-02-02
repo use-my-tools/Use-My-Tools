@@ -47,7 +47,8 @@ const styles = theme => ({
   },
   registerLink: {
     textDecoration: "none",
-    display: "block"
+    display: "block",
+    padding: "20px 0"
   }
 });
 
