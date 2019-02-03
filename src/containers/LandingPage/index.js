@@ -14,6 +14,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import NavBar from "../../components/NavBar";
 
 const styles = theme => ({
   appBar: {
@@ -79,29 +80,7 @@ function LandingPage(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.grow}
-          >
-            Use My Tool
-          </Typography>
-          <Button color="inherit">
-            <Link className={classes.link} to="/register">
-              Register
-            </Link>
-          </Button>
-          <Button color="inherit">
-            <Link className={classes.link} to="/login">
-              Login
-            </Link>
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <NavBar />
       <main>
         {/* Hero unit */}
         <div className={classes.heroUnit}>

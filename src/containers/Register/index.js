@@ -13,9 +13,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser, handleChange } from "../../store/actions";
+import NavBar from "../../components/NavBar";
 
 const styles = theme => ({
   main: {
+    marginTop: 100,
     width: "auto",
     display: "block", // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
@@ -67,103 +69,108 @@ function SignIn(props) {
     history.push("/login");
   }
   return (
-    <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Register
-        </Typography>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            registerUser(user);
-          }}
-          className={classes.form}
-        >
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="firstname">First Name</InputLabel>
-            <Input
-              id="firstname"
-              name="firstname"
-              autoComplete="firstname"
-              autoFocus
-              value={user.firstname}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="lastname">Last Name</InputLabel>
-            <Input
-              id="lastname"
-              name="lastname"
-              autoComplete="lastname"
-              autoFocus
-              value={user.lastname}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="username">username</InputLabel>
-            <Input
-              id="username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={user.username}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input
-              id="email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={user.email}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={user.password}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
-            <Input
-              name="confirmPassword"
-              type="password"
-              id="confirmPassword"
-              value={user.confirmPassword}
-              onChange={handleChange}
-            />
-          </FormControl>
-          {error && <small style={{ color: "red" }}>{error}</small>}
-          <Link className={classes.registerLink} to="/login">
-            Already Have an Account? Sign in
-          </Link>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+    <>
+      <NavBar />
+      <main className={classes.main}>
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Register
+          </Typography>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              registerUser(user);
+            }}
+            className={classes.form}
           >
-            Sign up
-          </Button>
-        </form>
-      </Paper>
-    </main>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="firstname">First Name</InputLabel>
+              <Input
+                id="firstname"
+                name="firstname"
+                autoComplete="firstname"
+                autoFocus
+                value={user.firstname}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="lastname">Last Name</InputLabel>
+              <Input
+                id="lastname"
+                name="lastname"
+                autoComplete="lastname"
+                autoFocus
+                value={user.lastname}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="username">username</InputLabel>
+              <Input
+                id="username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={user.username}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input
+                id="email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={user.email}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={user.password}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="confirmPassword">
+                Confirm Password
+              </InputLabel>
+              <Input
+                name="confirmPassword"
+                type="password"
+                id="confirmPassword"
+                value={user.confirmPassword}
+                onChange={handleChange}
+              />
+            </FormControl>
+            {error && <small style={{ color: "red" }}>{error}</small>}
+            <Link className={classes.registerLink} to="/login">
+              Already Have an Account? Sign in
+            </Link>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign up
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    </>
   );
 }
 

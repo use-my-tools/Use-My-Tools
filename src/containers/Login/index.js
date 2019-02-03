@@ -15,9 +15,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, handleChange } from "../../store/actions";
+import NavBar from "../../components/NavBar";
 
 const styles = theme => ({
   main: {
+    marginTop: 100,
     width: "auto",
     display: "block", // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
@@ -69,67 +71,71 @@ function SignIn(props) {
     history.push("/dashboard");
   }
   return (
-    <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            loginUser(user);
-          }}
-          className={classes.form}
-        >
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input
-              id="username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              value={user.username}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={user.password}
-              onChange={handleChange}
-            />
-          </FormControl>
-          {error && (
-            <small style={{ color: "red", display: "block" }}>{error}</small>
-          )}
+    <>
+      <NavBar />
+      <main className={classes.main}>
+        <CssBaseline />
 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Link className={classes.registerLink} to="/register">
-            Don't Have an Account? Sign Up
-          </Link>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Sign in
-          </Button>
-        </form>
-      </Paper>
-    </main>
+          </Typography>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              loginUser(user);
+            }}
+            className={classes.form}
+          >
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="username">Username</InputLabel>
+              <Input
+                id="username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={user.username}
+                onChange={handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={user.password}
+                onChange={handleChange}
+              />
+            </FormControl>
+            {error && (
+              <small style={{ color: "red", display: "block" }}>{error}</small>
+            )}
+
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Link className={classes.registerLink} to="/register">
+              Don't Have an Account? Sign Up
+            </Link>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign in
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    </>
   );
 }
 
