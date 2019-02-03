@@ -5,7 +5,8 @@ import {
   LOGIN_FAILED,
   LOADING,
   HANDLE_CHANGE,
-  HANDLE_CLOSE
+  HANDLE_CLOSE,
+  HANDLE_ERRORS
 } from "../types/index";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   isLoading: false,
   error: null,
   loggedInUser: null,
+  registeredUser: null,
   isRegistered: false,
   open: false,
   message: "",
@@ -37,6 +39,13 @@ const login = (state = initialState, action) => {
         }
       };
 
+    case HANDLE_ERRORS:
+      return {
+        ...state,
+        open: true,
+        message: action.payload,
+        variant: "error"
+      };
     case LOADING:
       return {
         ...state,
@@ -52,6 +61,15 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        registerUser: action.payload,
+        user: {
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        },
         isRegistered: true
       };
     case REGISTER_FAILED:
@@ -59,8 +77,16 @@ const login = (state = initialState, action) => {
         ...state,
         isLoading: false,
         open: true,
-        message: action.payload,
-        variant: "error"
+        message: "Failed to register user",
+        variant: "error",
+        user: {
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        }
       };
 
     case LOGIN_SUCCESS:
@@ -75,7 +101,15 @@ const login = (state = initialState, action) => {
         isLoading: false,
         open: true,
         message: action.payload,
-        variant: "error"
+        variant: "error",
+        user: {
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        }
       };
     default:
       return state;

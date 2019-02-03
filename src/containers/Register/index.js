@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUser, handleChange } from "../../store/actions";
+import { registerUser, handleChange, handleErrors } from "../../store/actions";
 import NavBar from "../../components/NavBar";
 
 const styles = theme => ({
@@ -50,7 +50,8 @@ const styles = theme => ({
   registerLink: {
     textDecoration: "none",
     display: "block",
-    padding: "20px 0"
+    padding: "20px 0",
+    color: "white"
   }
 });
 
@@ -62,11 +63,22 @@ function SignIn(props) {
     error,
     registerUser,
     handleChange,
-    isRegistered,
-    history
+    history,
+    handleErrors
   } = props;
-  if (isRegistered) {
-    history.push("/login");
+
+  const onRegisterUser = (e, user) => {
+    e.preventDefault();
+    if (user.confirmPassword !== user.password) {
+      handleErrors("passwords do not match");
+    } else {
+      registerUser(user);
+      history.push("/login");
+    }
+  };
+
+  if (window.localStorage.token) {
+    history.push("/dashboard");
   }
   return (
     <>
@@ -81,10 +93,7 @@ function SignIn(props) {
             Register
           </Typography>
           <form
-            onSubmit={e => {
-              e.preventDefault();
-              registerUser(user);
-            }}
+            onSubmit={e => onRegisterUser(e, user)}
             className={classes.form}
           >
             <FormControl margin="normal" required fullWidth>
@@ -104,7 +113,6 @@ function SignIn(props) {
                 id="lastname"
                 name="lastname"
                 autoComplete="lastname"
-                autoFocus
                 value={user.lastname}
                 onChange={handleChange}
               />
@@ -115,7 +123,6 @@ function SignIn(props) {
                 id="username"
                 name="username"
                 autoComplete="username"
-                autoFocus
                 value={user.username}
                 onChange={handleChange}
               />
@@ -126,7 +133,6 @@ function SignIn(props) {
                 id="email"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 value={user.email}
                 onChange={handleChange}
               />
@@ -186,5 +192,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { registerUser, handleChange }
+  { registerUser, handleChange, handleErrors }
 )(withStyles(styles)(SignIn));

@@ -52,7 +52,8 @@ const styles = theme => ({
   registerLink: {
     textDecoration: "none",
     display: "block",
-    padding: "20px 0"
+    padding: "20px 0",
+    color: "white"
   }
 });
 

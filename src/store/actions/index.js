@@ -6,7 +6,8 @@ import {
   LOGIN_FAILED,
   LOADING,
   HANDLE_CHANGE,
-  HANDLE_CLOSE
+  HANDLE_CLOSE,
+  HANDLE_ERRORS
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -27,7 +28,9 @@ export const loginUser = user => dispatch => {
     .post(`https://tools-backend.herokuapp.com/api/registration/login`, user)
     .then(res => {
       window.localStorage.setItem("token", res.data.token);
-      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+      window.localStorage.setItem("username", res.data.username);
+      window.localStorage.setItem("image_url", res.data.image_url);
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
     .catch(error =>
       dispatch({ type: LOGIN_FAILED, payload: error.response.data.message })
@@ -44,5 +47,12 @@ export const handleChange = e => {
 export const handleClose = () => {
   return {
     type: HANDLE_CLOSE
+  };
+};
+
+export const handleErrors = message => {
+  return {
+    type: HANDLE_ERRORS,
+    payload: message
   };
 };
