@@ -5,7 +5,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   LOADING,
-  HANDLE_CHANGE
+  HANDLE_CHANGE,
+  HANDLE_CLOSE
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -37,5 +38,11 @@ export const handleChange = e => {
   return {
     type: HANDLE_CHANGE,
     e
+  };
+};
+
+export const handleClose = () => {
+  return {
+    type: HANDLE_CLOSE
   };
 };

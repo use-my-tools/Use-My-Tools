@@ -4,7 +4,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   LOADING,
-  HANDLE_CHANGE
+  HANDLE_CHANGE,
+  HANDLE_CLOSE
 } from "../types/index";
 
 const initialState = {
@@ -19,7 +20,10 @@ const initialState = {
   isLoading: false,
   error: null,
   loggedInUser: null,
-  isRegistered: false
+  isRegistered: false,
+  open: false,
+  message: "",
+  variant: "success"
 };
 
 const login = (state = initialState, action) => {
@@ -39,6 +43,11 @@ const login = (state = initialState, action) => {
         isLoading: true
       };
 
+    case HANDLE_CLOSE:
+      return {
+        ...state,
+        open: false
+      };
     case REGISTER_SUCCESS:
       return {
         ...state,
@@ -49,7 +58,9 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        open: true,
+        message: action.payload,
+        variant: "error"
       };
 
     case LOGIN_SUCCESS:
@@ -62,7 +73,9 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        open: true,
+        message: action.payload,
+        variant: "error"
       };
     default:
       return state;

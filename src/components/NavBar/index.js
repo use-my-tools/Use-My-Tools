@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
+import { handleClose } from "../../store/actions";
+import Snack from "../Snack";
 
 const styles = theme => ({
   appBar: {
@@ -25,8 +28,10 @@ const styles = theme => ({
 });
 
 const NavBar = props => {
-  const { classes } = props;
-
+  const { classes, open, message, variant, handleClose } = props;
+  if (open) {
+    setTimeout(() => handleClose(), 4000);
+  }
   return (
     <AppBar position="static" className={classes.appBar}>
       <Toolbar>
@@ -52,8 +57,23 @@ const NavBar = props => {
           </Link>
         </Button>
       </Toolbar>
+      <Snack
+        open={open}
+        handleClose={handleClose}
+        message={message}
+        variant={variant}
+      />
     </AppBar>
   );
 };
 
-export default withStyles(styles)(NavBar);
+const mapStateTopProps = state => ({
+  open: state.login.open,
+  message: state.login.message,
+  variant: state.login.variant
+});
+
+export default connect(
+  mapStateTopProps,
+  { handleClose }
+)(withStyles(styles)(NavBar));

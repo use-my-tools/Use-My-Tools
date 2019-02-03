@@ -4,3 +4,4 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOADING = "LOADING";
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
+export const HANDLE_CLOSE = "HANDLE_CLOSE";
