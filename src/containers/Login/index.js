@@ -13,6 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginUser, handleChange } from "../../store/actions";
 
 const styles = theme => ({
   main: {
@@ -53,8 +55,19 @@ const styles = theme => ({
 });
 
 function SignIn(props) {
-  const { classes } = props;
+  const {
+    classes,
+    error,
+    user,
+    isLoading,
+    loginUser,
+    handleChange,
+    history
+  } = props;
 
+  if (window.localStorage.token) {
+    history.push("/dashboard");
+  }
   return (
     <main className={classes.main}>
       <CssBaseline />
@@ -65,10 +78,23 @@ function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form}>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            loginUser(user);
+          }}
+          className={classes.form}
+        >
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+            <InputLabel htmlFor="username">Username</InputLabel>
+            <Input
+              id="username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={user.username}
+              onChange={handleChange}
+            />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -77,8 +103,14 @@ function SignIn(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={user.password}
+              onChange={handleChange}
             />
           </FormControl>
+          {error && (
+            <small style={{ color: "red", display: "block" }}>{error}</small>
+          )}
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -105,4 +137,13 @@ SignIn.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignIn);
+const mapStateToProps = state => ({
+  error: state.login.error,
+  user: state.login.user,
+  isLoading: state.login.isLoading
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser, handleChange }
+)(withStyles(styles)(SignIn));

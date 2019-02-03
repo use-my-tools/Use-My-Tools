@@ -11,13 +11,14 @@ const initialState = {
   user: {
     firstname: "",
     lastname: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: ""
   },
   isLoading: false,
-  error: {},
-  loggedInUser: {}
+  error: null,
+  loggedInUser: null
 };
 
 const login = (state = initialState, action) => {

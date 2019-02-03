@@ -11,6 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { registerUser, handleChange } from "../../store/actions";
 
 const styles = theme => ({
   main: {
@@ -51,8 +53,10 @@ const styles = theme => ({
 });
 
 function SignIn(props) {
-  const { classes } = props;
-
+  const { classes, user, isLoading, error, registerUser, handleChange } = props;
+  if (isLoading) {
+    return <div>LOADING</div>;
+  }
   return (
     <main className={classes.main}>
       <CssBaseline />
@@ -63,28 +67,56 @@ function SignIn(props) {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <form className={classes.form}>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            registerUser(user);
+          }}
+          className={classes.form}
+        >
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="firstName">First Name</InputLabel>
+            <InputLabel htmlFor="firstname">First Name</InputLabel>
             <Input
-              id="firstName"
-              name="firstName"
-              autoComplete="firstName"
+              id="firstname"
+              name="firstname"
+              autoComplete="firstname"
               autoFocus
+              value={user.firstname}
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="lastName">Last Name</InputLabel>
+            <InputLabel htmlFor="lastname">Last Name</InputLabel>
             <Input
-              id="lastName"
-              name="lastName"
-              autoComplete="lastName"
+              id="lastname"
+              name="lastname"
+              autoComplete="lastname"
               autoFocus
+              value={user.lastname}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="username">username</InputLabel>
+            <Input
+              id="username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={user.username}
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
+            <Input
+              id="email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={user.email}
+              onChange={handleChange}
+            />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -93,16 +125,21 @@ function SignIn(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={user.password}
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
             <Input
               name="confirmPassword"
-              type="confirmPassword"
+              type="password"
               id="confirmPassword"
+              value={user.confirmPassword}
+              onChange={handleChange}
             />
           </FormControl>
+          {error && <small style={{ color: "red" }}>{error}</small>}
           <Link className={classes.registerLink} to="/login">
             Already Have an Account? Sign in
           </Link>
@@ -125,4 +162,12 @@ SignIn.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SignIn);
+const mapStateToProps = state => ({
+  user: state.login.user,
+  error: state.login.error,
+  isLoading: state.login.isLoading
+});
+export default connect(
+  mapStateToProps,
+  { registerUser, handleChange }
+)(withStyles(styles)(SignIn));

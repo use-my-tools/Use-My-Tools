@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import LandingPage from "./containers/LandingPage";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
+import Dashboard from "./containers/Dashboard";
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/dashboard" component={Dashboard} />
       </div>
     );
   }
