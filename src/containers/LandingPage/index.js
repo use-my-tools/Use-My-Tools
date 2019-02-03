@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/NavBar";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   appBar: {
@@ -96,20 +97,20 @@ function LandingPage(props) {
               color="textSecondary"
               paragraph
             >
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don&apos;t simply skip over it entirely.
+              How many tools are just sitting around your house, not being used?
+              Use My Tools is a revolutionary way to make some extra money on
+              stuff you already own.
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={16} justify="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
+                  <Button
+                    component={Link}
+                    to="/register"
+                    variant="contained"
+                    color="primary"
+                  >
+                    Sign Up Now!
                   </Button>
                 </Grid>
               </Grid>
@@ -153,7 +154,7 @@ function LandingPage(props) {
       {/* Footer */}
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Contact Us
         </Typography>
         <Typography
           variant="subtitle1"
@@ -161,7 +162,15 @@ function LandingPage(props) {
           color="textSecondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          123 N. Main St
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          New York City, NY 18054
         </Typography>
       </footer>
       {/* End footer */}
