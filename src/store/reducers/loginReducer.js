@@ -18,7 +18,8 @@ const initialState = {
   },
   isLoading: false,
   error: null,
-  loggedInUser: null
+  loggedInUser: null,
+  isRegistered: false
 };
 
 const login = (state = initialState, action) => {
@@ -41,7 +42,8 @@ const login = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        isRegistered: true
       };
     case REGISTER_FAILED:
       return {

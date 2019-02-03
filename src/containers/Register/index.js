@@ -53,9 +53,18 @@ const styles = theme => ({
 });
 
 function SignIn(props) {
-  const { classes, user, isLoading, error, registerUser, handleChange } = props;
-  if (isLoading) {
-    return <div>LOADING</div>;
+  const {
+    classes,
+    user,
+    isLoading,
+    error,
+    registerUser,
+    handleChange,
+    isRegistered,
+    history
+  } = props;
+  if (isRegistered) {
+    history.push("/login");
   }
   return (
     <main className={classes.main}>
@@ -165,7 +174,8 @@ SignIn.propTypes = {
 const mapStateToProps = state => ({
   user: state.login.user,
   error: state.login.error,
-  isLoading: state.login.isLoading
+  isLoading: state.login.isLoading,
+  isRegistered: state.login.isRegistered
 });
 export default connect(
   mapStateToProps,
