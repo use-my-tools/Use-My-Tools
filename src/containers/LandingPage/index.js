@@ -140,9 +140,9 @@ function LandingPage(props) {
                     <Button size="small" color="primary">
                       View
                     </Button>
-                    <Button size="small" color="primary">
+                    {/* <Button size="small" color="primary">
                       Edit
-                    </Button>
+                    </Button> */}
                   </CardActions>
                 </Card>
               </Grid>

@@ -5,12 +5,11 @@ import Login from "./containers/Login";
 import Register from "./containers/Register";
 import Dashboard from "./containers/Dashboard";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import indigo from "@material-ui/core/colors/indigo";
+import red from "@material-ui/core/colors/red";
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: indigo[300] }, // Purple and green play nicely together.
-    type: "dark"
+    primary: { main: red[100] } // Purple and green play nicely together.
   },
   typography: { useNextVariants: true }
 });

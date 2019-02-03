@@ -12,6 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { connect } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Modal from "../../components/Modal";
 
 const drawerWidth = 240;
 
@@ -94,7 +95,7 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
   state = {
-    open: true
+    open: false
   };
 
   handleDrawerOpen = () => {
@@ -176,6 +177,7 @@ class Dashboard extends React.Component {
           <Typography variant="h4" gutterBottom component="h2">
             Welcome {window.localStorage.username}!
           </Typography>
+          <Modal />
         </main>
       </div>
     );
