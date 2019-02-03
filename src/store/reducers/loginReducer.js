@@ -6,7 +6,8 @@ import {
   LOADING,
   HANDLE_CHANGE,
   HANDLE_CLOSE,
-  HANDLE_ERRORS
+  HANDLE_ERRORS,
+  CLEAR_USER
 } from "../types/index";
 
 const initialState = {
@@ -39,6 +40,18 @@ const login = (state = initialState, action) => {
         }
       };
 
+    case CLEAR_USER:
+      return {
+        ...state,
+        user: {
+          firstname: "",
+          lastname: "",
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        }
+      };
     case HANDLE_ERRORS:
       return {
         ...state,

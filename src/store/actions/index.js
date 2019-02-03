@@ -7,7 +7,8 @@ import {
   LOADING,
   HANDLE_CHANGE,
   HANDLE_CLOSE,
-  HANDLE_ERRORS
+  HANDLE_ERRORS,
+  CLEAR_USER
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -54,5 +55,11 @@ export const handleErrors = message => {
   return {
     type: HANDLE_ERRORS,
     payload: message
+  };
+};
+
+export const clearUser = () => {
+  return {
+    type: CLEAR_USER
   };
 };

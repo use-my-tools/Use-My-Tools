@@ -13,7 +13,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { connect } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Modal from "../../components/Modal";
-
+import { clearUser } from "../../store/actions";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -107,7 +107,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes, history } = this.props;
+    const { classes, history, clearUser } = this.props;
     if (!window.localStorage.token) {
       history.push("/login");
     }
@@ -147,6 +147,7 @@ class Dashboard extends React.Component {
             </Typography>
             <IconButton
               onClick={() => {
+                clearUser();
                 window.localStorage.clear();
                 history.push("/login");
               }}
@@ -194,5 +195,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { clearUser }
 )(withStyles(styles)(Dashboard));
