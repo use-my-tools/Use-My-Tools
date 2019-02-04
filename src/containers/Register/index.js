@@ -59,7 +59,6 @@ function SignIn(props) {
   const {
     classes,
     user,
-    isLoading,
     error,
     registerUser,
     handleChange,

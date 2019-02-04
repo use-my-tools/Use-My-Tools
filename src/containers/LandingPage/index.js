@@ -70,15 +70,13 @@ const styles = theme => ({
   }
 });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
 class LandingPage extends React.Component {
   componentDidMount = () => {
     this.props.getTools();
   };
 
   render() {
-    const { classes, tools, isLoading } = this.props;
+    const { classes, tools } = this.props;
     return (
       <React.Fragment>
         <CssBaseline />
@@ -127,7 +125,7 @@ class LandingPage extends React.Component {
             <Grid container spacing={40}>
               {tools.data &&
                 tools.data.map(tool => (
-                  <Grid item sm={6} md={4} lg={3}>
+                  <Grid item key={tool.id} xs={12} sm={6} md={4} lg={3}>
                     <Card className={classes.card}>
                       <CardMedia
                         className={classes.cardMedia}

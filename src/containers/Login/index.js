@@ -58,15 +58,7 @@ const styles = theme => ({
 });
 
 function SignIn(props) {
-  const {
-    classes,
-    error,
-    user,
-    isLoading,
-    loginUser,
-    handleChange,
-    history
-  } = props;
+  const { classes, error, user, loginUser, handleChange, history } = props;
 
   if (window.localStorage.token) {
     history.push("/dashboard");
