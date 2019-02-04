@@ -1,6 +1,8 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { uploadImages, handleFileChange } from "../../store/actions/index";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   button: {
@@ -12,7 +14,7 @@ const styles = theme => ({
 });
 
 const ImageUpload = props => {
-  const { classes } = props;
+  const { classes, uploadImages, handleFileChange } = props;
 
   return (
     <>
@@ -23,6 +25,7 @@ const ImageUpload = props => {
         multiple
         type="file"
         name="image"
+        onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" component="span" className={classes.button}>
@@ -33,4 +36,9 @@ const ImageUpload = props => {
   );
 };
 
-export default withStyles(styles)(ImageUpload);
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  { uploadImages, handleFileChange }
+)(withStyles(styles)(ImageUpload));

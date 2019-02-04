@@ -15,7 +15,10 @@ import {
   GET_TOOLS_ERROR,
   SET_PAGINATION,
   HANDLE_TOOL_CHANGE,
-  CLEAR_TOOL
+  CLEAR_TOOL,
+  IMAGE_UPLOAD_SUCCESS,
+  IMAGE_UPLOAD_FAILED,
+  HANDLE_FILE_CHANGE
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -72,12 +75,29 @@ export const getTools = () => dispatch => {
   dispatch({ type: LOADING });
 
   axios
-    .get("https://tools-backend.herokuapp.com/api/tools")
+    .get("https://tools-backend.herokuapp.com/api/tools?count=12")
     .then(res => {
       dispatch({ type: SET_PAGINATION, payload: res.data });
       dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data });
     })
     .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
+
+export const uploadImages = (tool_id, image) => dispatch => {
+  dispatch({ type: LOADING });
+
+  axios
+    .post("https://tools-backend.herokuapp.com/api/upload/image", {
+      tool_id: 1,
+      image
+    })
+    .then(res => dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: res.data }))
+    .catch(error =>
+      dispatch({
+        type: IMAGE_UPLOAD_FAILED,
+        payload: error.response.data.message
+      })
+    );
 };
 
 export const pagination = page => dispatch => {
@@ -92,6 +112,13 @@ export const pagination = page => dispatch => {
 export const handleToolChange = e => {
   return {
     type: HANDLE_TOOL_CHANGE,
+    e
+  };
+};
+
+export const handleFileChange = e => {
+  return {
+    type: HANDLE_FILE_CHANGE,
     e
   };
 };

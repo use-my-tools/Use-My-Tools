@@ -10,7 +10,7 @@ import ToolInfoForm from "../ToolInfoForm";
 import ImageUpload from "../ImageUpload";
 import DescriptionInput from "../DescriptionInput";
 import Pricing from "../Pricing";
-import { addNewTool } from "../../store/actions/index";
+import { addNewTool, uploadImages } from "../../store/actions/index";
 import { connect } from "react-redux";
 const styles = theme => ({
   root: {
@@ -62,7 +62,8 @@ class VerticalLinearStepper extends React.Component {
     }
 
     if (this.state.activeStep === getSteps().length - 1) {
-      console.log("THIS IS WHEN THE IMAGES WILL BE SUBMITED ");
+      console.log(this.props.tool, this.props.tool.image);
+      this.props.uploadImages(this.props.tool.tool_id, this.props.tool.image);
     }
   };
 
@@ -149,5 +150,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addNewTool }
+  { addNewTool, uploadImages }
 )(withStyles(styles)(VerticalLinearStepper));

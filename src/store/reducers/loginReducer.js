@@ -14,7 +14,10 @@ import {
   GET_TOOLS_ERROR,
   SET_PAGINATION,
   HANDLE_TOOL_CHANGE,
-  CLEAR_TOOL
+  CLEAR_TOOL,
+  IMAGE_UPLOAD_SUCCESS,
+  IMAGE_UPLOAD_FAILED,
+  HANDLE_FILE_CHANGE
 } from "../types/index";
 
 const initialState = {
@@ -34,7 +37,9 @@ const initialState = {
     owner_id: "",
     description: "",
     dailyCost: "",
-    deposit: ""
+    deposit: "",
+    tool_id: 1,
+    image: ""
   },
   isLoading: false,
   error: null,
@@ -60,6 +65,15 @@ const login = (state = initialState, action) => {
         }
       };
 
+    case HANDLE_FILE_CHANGE:
+      return {
+        ...state,
+        tool: {
+          ...state.tool,
+          [action.e.target.name]: action.e.target.files[0],
+          tool_id: 1
+        }
+      };
     case CLEAR_TOOL:
       return {
         ...state,
@@ -73,6 +87,21 @@ const login = (state = initialState, action) => {
           dailyCost: "",
           deposit: ""
         }
+      };
+
+    case IMAGE_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        isLoading: false
+      };
+
+    case IMAGE_UPLOAD_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        message: action.payload,
+        variant: "error"
       };
 
     case CLEAR_USER:
