@@ -63,7 +63,7 @@ class VerticalLinearStepper extends React.Component {
       this.props.addNewTool(this.props.tool);
     }
 
-    if (this.state.activeStep === getSteps().length) {
+    if (this.state.activeStep === getSteps().length - 1) {
       console.log("THIS IS WHEN THE IMAGES WILL BE SUBMITED ");
     }
   };
