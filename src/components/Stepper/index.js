@@ -10,7 +10,11 @@ import ToolInfoForm from "../ToolInfoForm";
 import ImageUpload from "../ImageUpload";
 import DescriptionInput from "../DescriptionInput";
 import Pricing from "../Pricing";
-import { addNewTool, uploadImages } from "../../store/actions/index";
+import {
+  addNewTool,
+  uploadImages,
+  handleModalClose
+} from "../../store/actions/index";
 import { connect } from "react-redux";
 const styles = theme => ({
   root: {
@@ -29,7 +33,7 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ["Tool Information", "Description", "Prices", "Images"];
+  return ["Tool Information", "Description", "Prices"];
 }
 
 function getStepContent(step) {
@@ -40,8 +44,8 @@ function getStepContent(step) {
       return <DescriptionInput />;
     case 2:
       return <Pricing />;
-    case 3:
-      return <ImageUpload />;
+    // case 3:
+    //   return <ImageUpload />;
     default:
       return "Unknown step";
   }
@@ -57,14 +61,15 @@ class VerticalLinearStepper extends React.Component {
       activeStep: state.activeStep + 1
     }));
 
-    if (this.state.activeStep === getSteps().length - 2) {
+    if (this.state.activeStep === getSteps().length - 1) {
       this.props.addNewTool(this.props.tool);
+      this.props.handleModalClose();
     }
 
-    if (this.state.activeStep === getSteps().length - 1) {
-      console.log(this.props.tool, this.props.tool.image);
-      this.props.uploadImages(this.props.tool.tool_id, this.props.tool.image);
-    }
+    // if (this.state.activeStep === getSteps().length - 1) {
+    //   console.log(this.props.tool, this.props.tool.image);
+    //   this.props.uploadImages(this.props.tool.tool_id, this.props.tool.image);
+    // }
   };
 
   handleBack = () => {
@@ -125,7 +130,7 @@ class VerticalLinearStepper extends React.Component {
                       onClick={this.handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 2
+                      {activeStep === steps.length - 1
                         ? "Add Tool Info"
                         : "Next"}
                     </Button>
@@ -150,5 +155,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addNewTool, uploadImages }
+  { addNewTool, uploadImages, handleModalClose }
 )(withStyles(styles)(VerticalLinearStepper));

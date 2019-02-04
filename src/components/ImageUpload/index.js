@@ -14,8 +14,7 @@ const styles = theme => ({
 });
 
 const ImageUpload = props => {
-  const { classes, uploadImages, handleFileChange } = props;
-
+  const { classes, uploadImages, handleFileChange, tool, tool_id } = props;
   return (
     <>
       <input
@@ -28,15 +27,26 @@ const ImageUpload = props => {
         onChange={handleFileChange}
       />
       <label htmlFor="contained-button-file">
-        <Button variant="contained" component="span" className={classes.button}>
-          Upload
+        <Button component="span" className={classes.button}>
+          Choose Image
         </Button>
       </label>
+      <Button
+        onClick={() => uploadImages(tool_id, tool.image)}
+        type="submit"
+        className={classes.button}
+        component="span"
+        variant="contained"
+      >
+        Upload
+      </Button>
     </>
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  tool: state.login.tool
+});
 
 export default connect(
   mapStateToProps,

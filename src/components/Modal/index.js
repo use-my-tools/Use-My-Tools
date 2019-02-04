@@ -4,7 +4,13 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import Stepper from "../Stepper";
-import { clearTool } from "../../store/actions/index";
+import ImageUpload from "../ImageUpload";
+import {
+  clearTool,
+  handleModalOpen,
+  handleModalClose
+} from "../../store/actions/index";
+
 import { connect } from "react-redux";
 function getModalStyle() {
   return {
@@ -26,32 +32,35 @@ const styles = theme => ({
 });
 
 class SimpleModal extends React.Component {
-  state = {
-    open: false
-  };
-
   handleOpen = () => {
-    this.setState({ open: true });
+    this.props.handleModalOpen();
   };
 
   handleClose = () => {
-    this.setState({ open: false }, () => this.props.clearTool());
+    this.props.handleModalClose();
+    this.props.clearTool();
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, modalOpen, title, tool_id, tool } = this.props;
 
     return (
       <div>
-        <Button onClick={this.handleOpen}>Add New Tool</Button>
+        <Button onClick={this.handleOpen}>
+          {title ? title : "Add New Tool"}
+        </Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={this.state.open}
+          open={modalOpen}
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Stepper />
+            {this.props.upload ? (
+              <ImageUpload tool_id={tool_id} tool={tool} />
+            ) : (
+              <Stepper />
+            )}
           </div>
         </Modal>
       </div>
@@ -63,10 +72,13 @@ SimpleModal.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  modalOpen: state.login.modalOpen
+});
 // We need an intermediary variable for handling the recursive nesting.
 const SimpleModalWrapped = withStyles(styles)(SimpleModal);
 
 export default connect(
-  null,
-  { clearTool }
+  mapStateToProps,
+  { clearTool, handleModalOpen, handleModalClose }
 )(SimpleModalWrapped);

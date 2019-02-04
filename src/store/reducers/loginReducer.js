@@ -17,7 +17,9 @@ import {
   CLEAR_TOOL,
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOAD_FAILED,
-  HANDLE_FILE_CHANGE
+  HANDLE_FILE_CHANGE,
+  HANDLE_MODAL_OPEN,
+  HANDLE_MODAL_CLOSE
 } from "../types/index";
 
 const initialState = {
@@ -51,7 +53,8 @@ const initialState = {
   variant: "success",
   tools: [],
   currentPage: 0,
-  lastPage: 0
+  lastPage: 0,
+  modalOpen: false
 };
 
 const login = (state = initialState, action) => {
@@ -72,6 +75,28 @@ const login = (state = initialState, action) => {
           ...state.tool,
           [action.e.target.name]: action.e.target.files[0],
           tool_id: 1
+        }
+      };
+
+    case HANDLE_MODAL_OPEN:
+      return {
+        ...state,
+        modalOpen: true
+      };
+
+    case HANDLE_MODAL_CLOSE:
+      return {
+        ...state,
+        modalOpen: false,
+        tool: {
+          name: "",
+          brand: "",
+          category: "",
+          address: "",
+          owner_id: "",
+          description: "",
+          dailyCost: "",
+          deposit: ""
         }
       };
     case CLEAR_TOOL:

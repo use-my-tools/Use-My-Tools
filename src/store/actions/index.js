@@ -18,7 +18,9 @@ import {
   CLEAR_TOOL,
   IMAGE_UPLOAD_SUCCESS,
   IMAGE_UPLOAD_FAILED,
-  HANDLE_FILE_CHANGE
+  HANDLE_FILE_CHANGE,
+  HANDLE_MODAL_OPEN,
+  HANDLE_MODAL_CLOSE
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -64,6 +66,7 @@ export const addNewTool = tool => dispatch => {
   axios
     .post("https://tools-backend.herokuapp.com/api/tools", tool, config)
     .then(res => {
+      console.log(res.data);
       dispatch({ type: NEW_TOOL_ADDED, payload: res.data });
     })
     .catch(error => {
@@ -85,12 +88,11 @@ export const getTools = () => dispatch => {
 
 export const uploadImages = (tool_id, image) => dispatch => {
   dispatch({ type: LOADING });
-
+  let formData = new FormData();
+  formData.append("image", image);
+  formData.append("tool_id", tool_id);
   axios
-    .post("https://tools-backend.herokuapp.com/api/upload/image", {
-      tool_id: 1,
-      image
-    })
+    .post("https://tools-backend.herokuapp.com/api/upload/image", formData)
     .then(res => dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: res.data }))
     .catch(error =>
       dispatch({
@@ -152,5 +154,17 @@ export const handleErrors = message => {
 export const clearUser = () => {
   return {
     type: CLEAR_USER
+  };
+};
+
+export const handleModalOpen = () => {
+  return {
+    type: HANDLE_MODAL_OPEN
+  };
+};
+
+export const handleModalClose = () => {
+  return {
+    type: HANDLE_MODAL_CLOSE
   };
 };
