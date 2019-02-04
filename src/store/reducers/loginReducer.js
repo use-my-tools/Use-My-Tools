@@ -11,7 +11,8 @@ import {
   NEW_TOOL_ADDED,
   NEW_TOOL_FAILED,
   GET_TOOLS_SUCCESS,
-  GET_TOOLS_ERROR
+  GET_TOOLS_ERROR,
+  SET_PAGINATION
 } from "../types/index";
 
 const initialState = {
@@ -31,7 +32,9 @@ const initialState = {
   open: false,
   message: "",
   variant: "success",
-  tools: []
+  tools: [],
+  currentPage: 0,
+  lastPage: 0
 };
 
 const login = (state = initialState, action) => {
@@ -76,6 +79,13 @@ const login = (state = initialState, action) => {
         open: false
       };
 
+    case SET_PAGINATION:
+      return {
+        ...state,
+        isLoading: false,
+        currentPage: action.payload.current_page,
+        lastPage: action.payload.last_page
+      };
     case GET_TOOLS_SUCCESS:
       return {
         ...state,

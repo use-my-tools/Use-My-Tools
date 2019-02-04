@@ -12,7 +12,8 @@ import {
   NEW_TOOL_ADDED,
   NEW_TOOL_FAILED,
   GET_TOOLS_SUCCESS,
-  GET_TOOLS_ERROR
+  GET_TOOLS_ERROR,
+  SET_PAGINATION
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -67,6 +68,18 @@ export const getTools = () => dispatch => {
 
   axios
     .get("https://tools-backend.herokuapp.com/api/tools")
+    .then(res => {
+      dispatch({ type: SET_PAGINATION, payload: res.data });
+      dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data });
+    })
+    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
+
+export const pagination = page => dispatch => {
+  dispatch({ type: LOADING });
+
+  axios
+    .get(`https://tools-backend.herokuapp.com/api/tools?page=${page}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
     .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
 };

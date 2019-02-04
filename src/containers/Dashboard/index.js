@@ -23,7 +23,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Modal from "../../components/Modal";
 import { clearUser, getTools } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
-import Pagination from "material-ui-flat-pagination";
+import Pagination from "../../components/Pagination";
 
 const drawerWidth = 240;
 
@@ -145,6 +145,7 @@ class Dashboard extends React.Component {
   };
 
   handleClick(offset) {
+    console.log(offset);
     this.setState({ offset });
   }
   handleDrawerOpen = () => {
@@ -262,13 +263,7 @@ class Dashboard extends React.Component {
                 ))}
             </Grid>
           </div>
-          <Pagination
-            limit={10}
-            offset={this.state.offset}
-            total={100}
-            className={classes.pagination}
-            onClick={(e, offset) => this.handleClick(offset)}
-          />
+          <Pagination />
         </main>
       </div>
     );
