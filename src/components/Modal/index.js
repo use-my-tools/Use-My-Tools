@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
+import Stepper from "../Stepper";
 
 function getModalStyle() {
   return {
@@ -50,9 +51,7 @@ class SimpleModal extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <form>
-              <input name="tool-name" type="text" />
-            </form>
+            <Stepper />
           </div>
         </Modal>
       </div>
