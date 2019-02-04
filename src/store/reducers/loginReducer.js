@@ -140,7 +140,7 @@ const login = (state = initialState, action) => {
         error: true,
         isLoading: false,
         open: true,
-        message: "Failed to register user",
+        message: action.payload,
         variant: "error",
         user: {
           firstname: "",

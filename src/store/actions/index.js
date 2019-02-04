@@ -25,9 +25,9 @@ export const registerUser = user => dispatch => {
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
       window.location.href = "/login";
     })
-    .catch(error =>
-      dispatch({ type: REGISTER_FAILED, payload: error.response.data.message })
-    );
+    .catch(error => {
+      dispatch({ type: REGISTER_FAILED, payload: error.response.data.message });
+    });
 };
 
 export const loginUser = user => dispatch => {
@@ -39,11 +39,13 @@ export const loginUser = user => dispatch => {
       window.localStorage.setItem("token", res.data.token);
       window.localStorage.setItem("username", res.data.username);
       window.localStorage.setItem("image_url", res.data.image_url);
+      window.localStorage.setItem("firstname", res.data.firstname);
+      window.localStorage.setItem("lastname", res.data.lastname);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
-    .catch(error =>
-      dispatch({ type: LOGIN_FAILED, payload: error.response.data.message })
-    );
+    .catch(error => {
+      dispatch({ type: LOGIN_FAILED, payload: error.response.data.message });
+    });
 };
 export const addNewTool = tool => dispatch => {
   dispatch({ type: LOADING });
@@ -79,7 +81,7 @@ export const pagination = page => dispatch => {
   dispatch({ type: LOADING });
 
   axios
-    .get(`https://tools-backend.herokuapp.com/api/tools?page=${page}`)
+    .get(`https://tools-backend.herokuapp.com/api/tools?count=12&page=${page}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
     .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
 };
