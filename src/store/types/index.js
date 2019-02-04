@@ -7,3 +7,7 @@ export const HANDLE_CHANGE = "HANDLE_CHANGE";
 export const HANDLE_CLOSE = "HANDLE_CLOSE";
 export const HANDLE_ERRORS = "HANDLE_ERRORS";
 export const CLEAR_USER = "CLEAR_USER";
+export const NEW_TOOL_FAILED = "NEW_TOOL_FAILED";
+export const NEW_TOOL_ADDED = "NEW_TOOL_ADDED";
+export const GET_TOOLS_SUCCESS = "GET_TOOLS_SUCCESS";
+export const GET_TOOLS_ERROR = "GET_TOOLS_ERROR";

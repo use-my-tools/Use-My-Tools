@@ -7,7 +7,11 @@ import {
   HANDLE_CHANGE,
   HANDLE_CLOSE,
   HANDLE_ERRORS,
-  CLEAR_USER
+  CLEAR_USER,
+  NEW_TOOL_ADDED,
+  NEW_TOOL_FAILED,
+  GET_TOOLS_SUCCESS,
+  GET_TOOLS_ERROR
 } from "../types/index";
 
 const initialState = {
@@ -26,7 +30,8 @@ const initialState = {
   isRegistered: false,
   open: false,
   message: "",
-  variant: "success"
+  variant: "success",
+  tools: []
 };
 
 const login = (state = initialState, action) => {
@@ -69,6 +74,39 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         open: false
+      };
+
+    case GET_TOOLS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        tools: action.payload
+      };
+
+    case GET_TOOLS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        variant: "error",
+        message: "Failed to get tools"
+      };
+    case NEW_TOOL_ADDED:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        message: action.payload,
+        variant: "success"
+      };
+
+    case NEW_TOOL_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        message: action.payload,
+        variant: "error"
       };
     case REGISTER_SUCCESS:
       return {

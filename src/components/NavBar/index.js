@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { handleClose } from "../../store/actions";
 import Snack from "../Snack";
+import Loader from "../Loader";
 
 const styles = theme => ({
   appBar: {
@@ -28,12 +29,13 @@ const styles = theme => ({
 });
 
 const NavBar = props => {
-  const { classes, open, message, variant, handleClose } = props;
+  const { classes, open, message, variant, handleClose, isLoading } = props;
   if (open) {
     setTimeout(() => handleClose(), 4000);
   }
   return (
     <AppBar position="static" className={classes.appBar}>
+      {isLoading && <Loader />}
       <Toolbar>
         <CameraIcon className={classes.icon} />
         <Typography
@@ -70,7 +72,8 @@ const NavBar = props => {
 const mapStateTopProps = state => ({
   open: state.login.open,
   message: state.login.message,
-  variant: state.login.variant
+  variant: state.login.variant,
+  isLoading: state.login.isLoading
 });
 
 export default connect(
