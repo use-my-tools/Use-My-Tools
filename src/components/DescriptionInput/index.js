@@ -1,7 +1,8 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
+import { connect } from "react-redux";
+import { handleToolChange } from "../../store/actions/index";
 const styles = theme => ({
   container: {
     display: "flex",
@@ -21,7 +22,7 @@ const styles = theme => ({
 });
 
 const DescriptionInput = props => {
-  const { classes } = props;
+  const { classes, handleToolChange, tool } = props;
 
   return (
     <TextField
@@ -31,8 +32,17 @@ const DescriptionInput = props => {
       rowsMax="4"
       className={classes.textField}
       margin="normal"
+      name="description"
+      value={tool.description}
+      onChange={handleToolChange}
     />
   );
 };
 
-export default withStyles(styles)(DescriptionInput);
+const mapStateToProps = state => ({
+  tool: state.login.tool
+});
+export default connect(
+  mapStateToProps,
+  { handleToolChange }
+)(withStyles(styles)(DescriptionInput));

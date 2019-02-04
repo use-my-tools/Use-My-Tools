@@ -1,7 +1,8 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-
+import { connect } from "react-redux";
+import { handleToolChange } from "../../store/actions/index";
 const styles = theme => ({
   container: {
     display: "flex",
@@ -20,7 +21,7 @@ const styles = theme => ({
 });
 
 const Pricing = props => {
-  const { classes } = props;
+  const { classes, handleToolChange, tool } = props;
 
   return (
     <>
@@ -34,6 +35,9 @@ const Pricing = props => {
         }}
         margin="normal"
         variant="filled"
+        name="dailyCost"
+        value={tool.dailyCost}
+        onChange={handleToolChange}
       />
       <TextField
         id="filled-number"
@@ -45,9 +49,19 @@ const Pricing = props => {
         }}
         margin="normal"
         variant="filled"
+        name="deposit"
+        value={tool.deposit}
+        onChange={handleToolChange}
       />
     </>
   );
 };
 
-export default withStyles(styles)(Pricing);
+const mapStateToProps = state => ({
+  tool: state.login.tool
+});
+
+export default connect(
+  mapStateToProps,
+  { handleToolChange }
+)(withStyles(styles)(Pricing));

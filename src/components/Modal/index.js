@@ -4,7 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import Stepper from "../Stepper";
-
+import { clearTool } from "../../store/actions/index";
+import { connect } from "react-redux";
 function getModalStyle() {
   return {
     top: `50%`,
@@ -34,7 +35,7 @@ class SimpleModal extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false }, () => this.props.clearTool());
   };
 
   render() {
@@ -65,4 +66,7 @@ SimpleModal.propTypes = {
 // We need an intermediary variable for handling the recursive nesting.
 const SimpleModalWrapped = withStyles(styles)(SimpleModal);
 
-export default SimpleModalWrapped;
+export default connect(
+  null,
+  { clearTool }
+)(SimpleModalWrapped);

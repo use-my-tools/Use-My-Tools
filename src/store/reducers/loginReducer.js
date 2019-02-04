@@ -12,7 +12,9 @@ import {
   NEW_TOOL_FAILED,
   GET_TOOLS_SUCCESS,
   GET_TOOLS_ERROR,
-  SET_PAGINATION
+  SET_PAGINATION,
+  HANDLE_TOOL_CHANGE,
+  CLEAR_TOOL
 } from "../types/index";
 
 const initialState = {
@@ -23,6 +25,16 @@ const initialState = {
     email: "",
     password: "",
     confirmPassword: ""
+  },
+  tool: {
+    name: "",
+    brand: "",
+    category: "",
+    address: "",
+    owner_id: "",
+    description: "",
+    dailyCost: "",
+    deposit: ""
   },
   isLoading: false,
   error: null,
@@ -45,6 +57,21 @@ const login = (state = initialState, action) => {
         user: {
           ...state.user,
           [action.e.target.name]: action.e.target.value
+        }
+      };
+
+    case CLEAR_TOOL:
+      return {
+        ...state,
+        tool: {
+          name: "",
+          brand: "",
+          category: "",
+          address: "",
+          owner_id: "",
+          description: "",
+          dailyCost: "",
+          deposit: ""
         }
       };
 
@@ -78,7 +105,15 @@ const login = (state = initialState, action) => {
         ...state,
         open: false
       };
-
+    case HANDLE_TOOL_CHANGE:
+      return {
+        ...state,
+        tool: {
+          ...state.tool,
+          [action.e.target.name]: action.e.target.value,
+          owner_id: window.localStorage.user_id
+        }
+      };
     case SET_PAGINATION:
       return {
         ...state,
@@ -106,8 +141,9 @@ const login = (state = initialState, action) => {
         ...state,
         isLoading: false,
         open: true,
-        message: action.payload,
-        variant: "success"
+        message: "New Tool Added",
+        variant: "success",
+        tools: action.payload
       };
 
     case NEW_TOOL_FAILED:

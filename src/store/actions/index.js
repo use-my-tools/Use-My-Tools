@@ -13,7 +13,9 @@ import {
   NEW_TOOL_FAILED,
   GET_TOOLS_SUCCESS,
   GET_TOOLS_ERROR,
-  SET_PAGINATION
+  SET_PAGINATION,
+  HANDLE_TOOL_CHANGE,
+  CLEAR_TOOL
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -41,6 +43,7 @@ export const loginUser = user => dispatch => {
       window.localStorage.setItem("image_url", res.data.image_url);
       window.localStorage.setItem("firstname", res.data.firstname);
       window.localStorage.setItem("lastname", res.data.lastname);
+      window.localStorage.setItem("user_id", res.data.user_id);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
     .catch(error => {
@@ -84,6 +87,19 @@ export const pagination = page => dispatch => {
     .get(`https://tools-backend.herokuapp.com/api/tools?count=12&page=${page}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
     .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
+
+export const handleToolChange = e => {
+  return {
+    type: HANDLE_TOOL_CHANGE,
+    e
+  };
+};
+
+export const clearTool = () => {
+  return {
+    type: CLEAR_TOOL
+  };
 };
 
 export const handleChange = e => {

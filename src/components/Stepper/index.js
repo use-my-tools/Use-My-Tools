@@ -12,7 +12,8 @@ import ToolInfoForm from "../ToolInfoForm";
 import ImageUpload from "../ImageUpload";
 import DescriptionInput from "../DescriptionInput";
 import Pricing from "../Pricing";
-
+import { addNewTool } from "../../store/actions/index";
+import { connect } from "react-redux";
 const styles = theme => ({
   root: {
     width: "90%"
@@ -57,6 +58,14 @@ class VerticalLinearStepper extends React.Component {
     this.setState(state => ({
       activeStep: state.activeStep + 1
     }));
+
+    if (this.state.activeStep === getSteps().length - 2) {
+      this.props.addNewTool(this.props.tool);
+    }
+
+    if (this.state.activeStep === getSteps().length) {
+      console.log("THIS IS WHEN THE IMAGES WILL BE SUBMITED ");
+    }
   };
 
   handleBack = () => {
@@ -71,6 +80,23 @@ class VerticalLinearStepper extends React.Component {
     });
   };
 
+  handleDisabledButton = () => {
+    const { tool } = this.props;
+    if (this.state.activeStep === 0) {
+      if (!tool.name || !tool.brand || !tool.category || !tool.address) {
+        return true;
+      }
+    } else if (this.state.activeStep === 1) {
+      if (!tool.description) {
+        return true;
+      }
+    } else if (this.state.activeStep === 2) {
+      if (!tool.dailyCost || !tool.deposit) {
+        return true;
+      }
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const steps = getSteps();
@@ -83,7 +109,7 @@ class VerticalLinearStepper extends React.Component {
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
               <StepContent>
-                <Typography>{getStepContent(index)}</Typography>
+                {getStepContent(index)}
                 <div className={classes.actionsContainer}>
                   <div>
                     <Button
@@ -94,12 +120,15 @@ class VerticalLinearStepper extends React.Component {
                       Back
                     </Button>
                     <Button
+                      disabled={this.handleDisabledButton()}
                       variant="contained"
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
                     >
-                      {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      {activeStep === steps.length - 2
+                        ? "Add Tool Info"
+                        : "Next"}
                     </Button>
                   </div>
                 </div>
@@ -107,14 +136,6 @@ class VerticalLinearStepper extends React.Component {
             </Step>
           ))}
         </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>All steps completed - you&apos;re finished</Typography>
-            <Button onClick={this.handleReset} className={classes.button}>
-              Reset
-            </Button>
-          </Paper>
-        )}
       </div>
     );
   }
@@ -124,4 +145,11 @@ VerticalLinearStepper.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(styles)(VerticalLinearStepper);
+const mapStateToProps = state => ({
+  tool: state.login.tool
+});
+
+export default connect(
+  mapStateToProps,
+  { addNewTool }
+)(withStyles(styles)(VerticalLinearStepper));
