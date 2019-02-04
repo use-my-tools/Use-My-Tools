@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
+import Pagination from "material-ui-flat-pagination";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import NavBar from "../../components/NavBar";
@@ -67,13 +68,23 @@ const styles = theme => ({
   link: {
     textDecoration: "none",
     color: "white"
+  },
+  pagination: {
+    textAlign: "center"
   }
 });
 
 class LandingPage extends React.Component {
+  state = {
+    offset: 0
+  };
   componentDidMount = () => {
     this.props.getTools();
   };
+
+  handleClick(offset) {
+    this.setState({ offset });
+  }
 
   render() {
     const { classes, tools } = this.props;
@@ -151,6 +162,13 @@ class LandingPage extends React.Component {
                 ))}
             </Grid>
           </div>
+          <Pagination
+            limit={10}
+            offset={this.state.offset}
+            total={100}
+            className={classes.pagination}
+            onClick={(e, offset) => this.handleClick(offset)}
+          />
         </main>
         {/* Footer */}
         <footer className={classes.footer}>

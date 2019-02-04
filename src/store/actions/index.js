@@ -44,7 +44,6 @@ export const loginUser = user => dispatch => {
       dispatch({ type: LOGIN_FAILED, payload: error.response.data.message })
     );
 };
-
 export const addNewTool = tool => dispatch => {
   dispatch({ type: LOADING });
   const config = {

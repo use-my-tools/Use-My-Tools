@@ -23,6 +23,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Modal from "../../components/Modal";
 import { clearUser, getTools } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
+import Pagination from "material-ui-flat-pagination";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -123,18 +125,28 @@ const styles = theme => ({
   },
   cardContent: {
     flexGrow: 1
+  },
+  avatar: {
+    margin: 10
+  },
+  pagination: {
+    textAlign: "center"
   }
 });
 
 class Dashboard extends React.Component {
   state = {
-    open: false
+    open: false,
+    offset: 0
   };
 
   componentDidMount = () => {
     this.props.getTools();
   };
 
+  handleClick(offset) {
+    this.setState({ offset });
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -250,6 +262,13 @@ class Dashboard extends React.Component {
                 ))}
             </Grid>
           </div>
+          <Pagination
+            limit={10}
+            offset={this.state.offset}
+            total={100}
+            className={classes.pagination}
+            onClick={(e, offset) => this.handleClick(offset)}
+          />
         </main>
       </div>
     );
