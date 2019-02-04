@@ -22,6 +22,7 @@ const ImageUpload = props => {
         id="contained-button-file"
         multiple
         type="file"
+        name="image"
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" component="span" className={classes.button}>

@@ -229,7 +229,7 @@ class Dashboard extends React.Component {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">
-            Welcome {window.localStorage.username}!
+            Welcome {window.localStorage.firstname.toUpperCase()}!
           </Typography>
           <Modal />
           <div className={classNames(classes.layout, classes.cardGrid)}>
