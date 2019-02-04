@@ -73,6 +73,7 @@ const login = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
+        error: false,
         isLoading: false,
         registerUser: action.payload,
         user: {
@@ -88,6 +89,7 @@ const login = (state = initialState, action) => {
     case REGISTER_FAILED:
       return {
         ...state,
+        error: true,
         isLoading: false,
         open: true,
         message: "Failed to register user",

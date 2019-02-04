@@ -73,7 +73,6 @@ function SignIn(props) {
       handleErrors("passwords do not match");
     } else {
       registerUser(user);
-      history.push("/login");
     }
   };
 

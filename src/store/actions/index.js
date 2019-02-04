@@ -16,7 +16,10 @@ export const registerUser = user => dispatch => {
 
   axios
     .post(`https://tools-backend.herokuapp.com/api/registration/register`, user)
-    .then(res => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
+    .then(res => {
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+      window.location.href = "/login";
+    })
     .catch(error =>
       dispatch({ type: REGISTER_FAILED, payload: error.response.data.message })
     );
