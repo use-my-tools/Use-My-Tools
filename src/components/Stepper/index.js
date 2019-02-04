@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 function getSteps() {
-  return ["Tool Information", "Images", "Description", "Prices"];
+  return ["Tool Information", "Description", "Prices", "Images"];
 }
 
 function getStepContent(step) {
@@ -38,11 +38,11 @@ function getStepContent(step) {
     case 0:
       return <ToolInfoForm />;
     case 1:
-      return <ImageUpload />;
-    case 2:
       return <DescriptionInput />;
-    case 3:
+    case 2:
       return <Pricing />;
+    case 3:
+      return <ImageUpload />;
     default:
       return "Unknown step";
   }
