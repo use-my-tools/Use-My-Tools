@@ -19,7 +19,10 @@ import {
   IMAGE_UPLOAD_FAILED,
   HANDLE_FILE_CHANGE,
   HANDLE_MODAL_OPEN,
-  HANDLE_MODAL_CLOSE
+  HANDLE_MODAL_CLOSE,
+  HANDLE_MODAL_UPLOAD_OPEN,
+  HANDLE_MODAL_UPLOAD_CLOSE,
+  HANDLE_UPLOAD_ID
 } from "../types/index";
 
 const initialState = {
@@ -54,7 +57,9 @@ const initialState = {
   tools: [],
   currentPage: 0,
   lastPage: 0,
-  modalOpen: false
+  modalOpen: false,
+  modalUploadOpen: false,
+  uploadingTo: null
 };
 
 const login = (state = initialState, action) => {
@@ -68,6 +73,11 @@ const login = (state = initialState, action) => {
         }
       };
 
+    case HANDLE_UPLOAD_ID:
+      return {
+        ...state,
+        uploadingTo: action.payload
+      };
     case HANDLE_FILE_CHANGE:
       return {
         ...state,
@@ -99,6 +109,18 @@ const login = (state = initialState, action) => {
           deposit: ""
         }
       };
+
+    case HANDLE_MODAL_UPLOAD_OPEN:
+      return {
+        ...state,
+        modalUploadOpen: true
+      };
+
+    case HANDLE_MODAL_UPLOAD_CLOSE:
+      return {
+        ...state,
+        modalUploadOpen: false
+      };
     case CLEAR_TOOL:
       return {
         ...state,
@@ -117,7 +139,8 @@ const login = (state = initialState, action) => {
     case IMAGE_UPLOAD_SUCCESS:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        modalUploadOpen: false
       };
 
     case IMAGE_UPLOAD_FAILED:
@@ -126,7 +149,8 @@ const login = (state = initialState, action) => {
         isLoading: false,
         open: true,
         message: action.payload,
-        variant: "error"
+        variant: "error",
+        modalUploadOpen: false
       };
 
     case CLEAR_USER:

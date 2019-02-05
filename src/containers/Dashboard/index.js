@@ -24,7 +24,7 @@ import Modal from "../../components/Modal";
 import { clearUser, getTools } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
 import Pagination from "../../components/Pagination";
-
+import ModalUpload from "../../components/ModalUpload";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -236,29 +236,28 @@ class Dashboard extends React.Component {
             {/* End hero unit */}
             <Grid container spacing={40}>
               {tools.data &&
-                tools.data.map(tool => {
+                tools.data.map(toolItem => {
                   return (
-                    <Grid item key={tool.id} xs={12} sm={6} md={4} lg={3}>
+                    <Grid item key={toolItem.id} xs={12} sm={6} md={4} lg={3}>
                       <Card className={classes.card}>
                         <CardMedia
                           className={classes.cardMedia}
                           image={
-                            tool.images.length > 0
-                              ? tool.images[0].url
+                            toolItem.images.length > 0
+                              ? toolItem.images[0].url
                               : "https://www.pbs.org/program/lunchbox_plugins/s/photogallery/img/no-image-available.jpg"
                           }
                           title="Image title"
                         />
                         <CardContent className={classes.cardContent}>
                           <Typography gutterBottom variant="h5" component="h2">
-                            {tool.name}
+                            {toolItem.name}
                           </Typography>
-                          <Typography>{tool.description}</Typography>
+                          <Typography>{toolItem.description}</Typography>
                         </CardContent>
                         <CardActions>
-                          <Button size="small" color="primary">
-                            View
-                          </Button>
+                          <ModalUpload tool={toolItem.id} />
+
                           <Button size="small" color="primary">
                             Edit
                           </Button>

@@ -14,7 +14,15 @@ const styles = theme => ({
 });
 
 const ImageUpload = props => {
-  const { classes, uploadImages, handleFileChange, tool, tool_id } = props;
+  const {
+    classes,
+    uploadImages,
+    handleFileChange,
+    tool,
+    toolItem,
+    uploadingTo
+  } = props;
+
   return (
     <>
       <input
@@ -32,7 +40,10 @@ const ImageUpload = props => {
         </Button>
       </label>
       <Button
-        onClick={() => uploadImages(tool_id, tool.image)}
+        onClick={() => {
+          window.location.href = "/dashboard";
+          uploadImages(uploadingTo, tool.image);
+        }}
         type="submit"
         className={classes.button}
         component="span"
@@ -45,7 +56,8 @@ const ImageUpload = props => {
 };
 
 const mapStateToProps = state => ({
-  tool: state.login.tool
+  tool: state.login.tool,
+  uploadingTo: state.login.uploadingTo
 });
 
 export default connect(

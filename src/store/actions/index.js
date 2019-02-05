@@ -20,7 +20,10 @@ import {
   IMAGE_UPLOAD_FAILED,
   HANDLE_FILE_CHANGE,
   HANDLE_MODAL_OPEN,
-  HANDLE_MODAL_CLOSE
+  HANDLE_MODAL_CLOSE,
+  HANDLE_MODAL_UPLOAD_OPEN,
+  HANDLE_MODAL_UPLOAD_CLOSE,
+  HANDLE_UPLOAD_ID
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -166,5 +169,24 @@ export const handleModalOpen = () => {
 export const handleModalClose = () => {
   return {
     type: HANDLE_MODAL_CLOSE
+  };
+};
+
+export const handleModalUploadOpen = () => {
+  return {
+    type: HANDLE_MODAL_UPLOAD_OPEN
+  };
+};
+
+export const handleModalUploadClose = () => {
+  return {
+    type: HANDLE_MODAL_UPLOAD_CLOSE
+  };
+};
+
+export const handleUploadId = id => {
+  return {
+    type: HANDLE_UPLOAD_ID,
+    payload: id
   };
 };

@@ -7,8 +7,9 @@ import Stepper from "../Stepper";
 import ImageUpload from "../ImageUpload";
 import {
   clearTool,
-  handleModalOpen,
-  handleModalClose
+  handleModalUploadOpen,
+  handleModalUploadClose,
+  handleUploadId
 } from "../../store/actions/index";
 
 import { connect } from "react-redux";
@@ -33,30 +34,35 @@ const styles = theme => ({
 
 class SimpleModal extends React.Component {
   handleOpen = () => {
-    this.props.handleModalOpen();
+    this.props.handleModalUploadOpen();
   };
 
   handleClose = () => {
-    this.props.handleModalClose();
+    this.props.handleModalUploadClose();
     this.props.clearTool();
   };
 
   render() {
-    const { classes, modalOpen, title, tool_id, tool } = this.props;
-
+    const { classes, modalUploadOpen, tool, handleUploadId } = this.props;
     return (
       <div>
-        <Button onClick={this.handleOpen}>
-          {title ? title : "Add New Tool"}
+        <Button
+          onClick={() => {
+            handleUploadId(tool);
+            console.log(tool);
+            this.handleOpen();
+          }}
+        >
+          Upload Images
         </Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={modalOpen}
+          open={modalUploadOpen}
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Stepper />
+            <ImageUpload toolItem={tool} />
           </div>
         </Modal>
       </div>
@@ -69,12 +75,12 @@ SimpleModal.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  modalOpen: state.login.modalOpen
+  modalUploadOpen: state.login.modalUploadOpen
 });
 // We need an intermediary variable for handling the recursive nesting.
 const SimpleModalWrapped = withStyles(styles)(SimpleModal);
 
 export default connect(
   mapStateToProps,
-  { clearTool, handleModalOpen, handleModalClose }
+  { clearTool, handleModalUploadOpen, handleModalUploadClose, handleUploadId }
 )(SimpleModalWrapped);
