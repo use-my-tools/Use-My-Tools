@@ -15,6 +15,7 @@ import NavBar from "../../components/NavBar";
 import { Link } from "react-router-dom";
 import { getTools } from "../../store/actions";
 import { connect } from "react-redux";
+import Carousel from "../../components/Carousel";
 const styles = theme => ({
   appBar: {
     position: "fixed"
@@ -129,7 +130,8 @@ class LandingPage extends React.Component {
                   return (
                     <Grid item key={tool.id} xs={12} sm={6} md={4} lg={3}>
                       <Card className={classes.card}>
-                        <CardMedia
+                        <Carousel toolImages={tool.images} />
+                        {/* <CardMedia
                           className={classes.cardMedia}
                           image={
                             tool.images.length > 0
@@ -137,7 +139,7 @@ class LandingPage extends React.Component {
                               : "https://www.pbs.org/program/lunchbox_plugins/s/photogallery/img/no-image-available.jpg"
                           }
                           title="Image title"
-                        />
+                        /> */}
                         <CardContent className={classes.cardContent}>
                           <Typography gutterBottom variant="h5" component="h2">
                             {tool.name}
@@ -147,9 +149,6 @@ class LandingPage extends React.Component {
                         <CardActions>
                           <Button size="small" color="primary">
                             View
-                          </Button>
-                          <Button size="small" color="primary">
-                            Edit
                           </Button>
                         </CardActions>
                       </Card>
