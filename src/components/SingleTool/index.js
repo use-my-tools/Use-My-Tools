@@ -37,7 +37,11 @@ const styles = theme => ({
   paper: {
     height: "100%",
     width: "40vw",
-    padding: 20
+    padding: 20,
+    textAlign: "center"
+  },
+  text: {
+    padding: 30
   }
 });
 
@@ -67,23 +71,28 @@ class SingleLineGridList extends React.Component {
             </Grid>
             <Grid item>
               <Paper className={classes.paper}>
-                <Typography component="h5" variant="h3">
+                <Typography
+                  className={classes.text}
+                  component="h5"
+                  variant="h5"
+                >
                   {oneTool.name}
                 </Typography>
 
-                <Typography component="h5" variant="h3">
+                <Typography variant="subtitle1" color="textSecondary">
                   {oneTool.category}
                 </Typography>
-                <Typography component="h5" variant="h3">
+                <Typography component="h5" variant="h5">
                   {oneTool.brand}
                 </Typography>
-                <Typography component="h5" variant="h5">
-                  {oneTool.address}
-                </Typography>
-                <Typography component="h5" variant="h6">
-                  {oneTool.description}
-                </Typography>
-                <Typography component="h5" variant="h5">
+                <Typography component="p">{oneTool.address}</Typography>
+                <Typography component="p">{oneTool.description}</Typography>
+                <Typography
+                  className={classes.text}
+                  color="primary"
+                  component="h5"
+                  variant="h5"
+                >
                   ${oneTool.dailyCost}
                 </Typography>
               </Paper>

@@ -20,6 +20,7 @@ import Items from "../../components/Items";
 import MyTools from "../../components/MyTools";
 import SingleTool from "../../components/SingleTool";
 import { Route } from "react-router-dom";
+import Loader from "../../components/Loader";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -152,13 +153,14 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes, history, clearUser } = this.props;
+    const { classes, history, clearUser, isLoading } = this.props;
     if (!window.localStorage.token) {
       history.push("/login");
     }
     return (
       <div className={classes.root}>
         <CssBaseline />
+
         <AppBar
           position="absolute"
           className={classNames(
@@ -166,6 +168,7 @@ class Dashboard extends React.Component {
             this.state.open && classes.appBarShift
           )}
         >
+          {isLoading && <Loader />}
           <Toolbar
             disableGutters={!this.state.open}
             className={classes.toolbar}
@@ -245,7 +248,8 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => ({
   loggedInUser: state.login.loggedInUser,
-  tools: state.login.tools
+  tools: state.login.tools,
+  isLoading: state.login.isLoading
 });
 
 export default connect(
