@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import Stepper from "../Stepper";
-import ImageUpload from "../ImageUpload";
 import {
   clearTool,
   handleModalOpen,
@@ -42,7 +41,7 @@ class SimpleModal extends React.Component {
   };
 
   render() {
-    const { classes, modalOpen, title, tool_id, tool } = this.props;
+    const { classes, modalOpen, title } = this.props;
 
     return (
       <div>

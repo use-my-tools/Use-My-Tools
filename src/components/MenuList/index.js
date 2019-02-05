@@ -11,17 +11,17 @@ import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem button component={Link} to="/dashboard">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component={Link} to="/dashboard/mytools">
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="My Tools" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>

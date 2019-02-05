@@ -14,14 +14,7 @@ const styles = theme => ({
 });
 
 const ImageUpload = props => {
-  const {
-    classes,
-    uploadImages,
-    handleFileChange,
-    tool,
-    toolItem,
-    uploadingTo
-  } = props;
+  const { classes, uploadImages, handleFileChange, tool, uploadingTo } = props;
 
   return (
     <>

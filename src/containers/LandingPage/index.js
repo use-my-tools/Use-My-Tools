@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Pagination from "../../components/Pagination";
@@ -131,15 +130,6 @@ class LandingPage extends React.Component {
                     <Grid item key={tool.id} xs={12} sm={6} md={4} lg={3}>
                       <Card className={classes.card}>
                         <Carousel toolImages={tool.images} />
-                        {/* <CardMedia
-                          className={classes.cardMedia}
-                          image={
-                            tool.images.length > 0
-                              ? tool.images[0].url
-                              : "https://www.pbs.org/program/lunchbox_plugins/s/photogallery/img/no-image-available.jpg"
-                          }
-                          title="Image title"
-                        /> */}
                         <CardContent className={classes.cardContent}>
                           <Typography gutterBottom variant="h5" component="h2">
                             {tool.name}

@@ -7,7 +7,6 @@ import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import Button from "@material-ui/core/Button";
 import ToolInfoForm from "../ToolInfoForm";
-import ImageUpload from "../ImageUpload";
 import DescriptionInput from "../DescriptionInput";
 import Pricing from "../Pricing";
 import {

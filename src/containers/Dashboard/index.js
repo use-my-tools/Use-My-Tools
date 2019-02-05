@@ -3,12 +3,6 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -20,13 +14,11 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Modal from "../../components/Modal";
 import { clearUser, getTools } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
-import Pagination from "../../components/Pagination";
-import ModalUpload from "../../components/ModalUpload";
-import Carousel from "../../components/Carousel";
-
+import Items from "../../components/Items";
+import SingleTool from "../../components/SingleTool";
+import { Route } from "react-router-dom";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -233,46 +225,8 @@ class Dashboard extends React.Component {
           <Typography variant="h4" gutterBottom component="h2">
             Welcome {window.localStorage.firstname.toUpperCase()}!
           </Typography>
-          <Modal />
-          <div className={classNames(classes.layout, classes.cardGrid)}>
-            {/* End hero unit */}
-            <Grid container spacing={40}>
-              {tools.data &&
-                tools.data.map(toolItem => {
-                  return (
-                    <Grid item key={toolItem.id} xs={12} sm={6} md={4} lg={3}>
-                      <Card className={classes.card}>
-                        <Carousel toolImages={toolItem.images} />
-
-                        {/* <CardMedia
-                          className={classes.cardMedia}
-                          image={
-                            toolItem.images.length > 0
-                              ? toolItem.images[0].url
-                              : "https://www.pbs.org/program/lunchbox_plugins/s/photogallery/img/no-image-available.jpg"
-                          }
-                          title="Image title"
-                        /> */}
-                        <CardContent className={classes.cardContent}>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {toolItem.name}
-                          </Typography>
-                          <Typography>{toolItem.description}</Typography>
-                        </CardContent>
-                        <CardActions>
-                          <ModalUpload tool={toolItem.id} />
-
-                          <Button size="small" color="primary">
-                            Edit
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
-                })}
-            </Grid>
-          </div>
-          <Pagination />
+          <Route exact path="/dashboard" component={Items} />
+          <Route exact path="/dashboard/tools" component={SingleTool} />
         </main>
       </div>
     );
