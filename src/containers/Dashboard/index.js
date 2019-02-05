@@ -151,7 +151,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes, history, clearUser, tools } = this.props;
+    const { classes, history, clearUser } = this.props;
     if (!window.localStorage.token) {
       history.push("/login");
     }
@@ -226,7 +226,11 @@ class Dashboard extends React.Component {
             Welcome {window.localStorage.firstname.toUpperCase()}!
           </Typography>
           <Route exact path="/dashboard" component={Items} />
-          <Route exact path="/dashboard/tools" component={SingleTool} />
+          <Route
+            exact
+            path="/dashboard/tools/:id"
+            render={props => <SingleTool {...props} />}
+          />
         </main>
       </div>
     );

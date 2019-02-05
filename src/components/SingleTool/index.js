@@ -1,19 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import { getOneTool } from "../../store/actions/index";
+import { connect } from "react-redux";
 const styles = theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper
+    overflow: "hidden"
   },
   gridList: {
     flexWrap: "nowrap",
@@ -26,39 +24,86 @@ const styles = theme => ({
   titleBar: {
     background:
       "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
+  },
+  paper: {
+    height: "100vh",
+    width: "40vw",
+    padding: 20
   }
 });
 
-function SingleLineGridList(props) {
-  const { classes } = props;
+class SingleLineGridList extends React.Component {
+  componentDidMount = () => {
+    this.props.getOneTool(this.props.match.params.id);
+  };
+  render() {
+    const { classes, oneTool } = this.props;
+    return (
+      <Grid container className={classes.root} spacing={16}>
+        <Grid item xs={12}>
+          <Grid
+            container
+            className={classes.demo}
+            justify="center"
+            spacing={32}
+          >
+            <Grid item>
+              <Paper className={classes.paper}>
+                {oneTool && oneTool.images ? (
+                  oneTool.images.map((image, i) => {
+                    return (
+                      <img
+                        key={i}
+                        width="100%"
+                        height="100%"
+                        src={image.url}
+                        alt="Paella dish"
+                      />
+                    );
+                  })
+                ) : (
+                  <h1>NO IMAGES FOUND</h1>
+                )}
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Paper className={classes.paper}>
+                <Typography component="h5" variant="h3">
+                  {oneTool.name}
+                </Typography>
 
-  return (
-    <div className={classes.root}>
-      <GridList className={classes.gridList} cols={2.5}>
-        {[].map(tile => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-              classes={{
-                root: classes.titleBar,
-                title: classes.title
-              }}
-              actionIcon={
-                <IconButton>
-                  <StarBorderIcon className={classes.title} />
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
-  );
+                <Typography component="h5" variant="h3">
+                  {oneTool.category}
+                </Typography>
+                <Typography component="h5" variant="h3">
+                  {oneTool.brand}
+                </Typography>
+                <Typography component="h5" variant="h5">
+                  {oneTool.address}
+                </Typography>
+                <Typography component="h5" variant="h6">
+                  {oneTool.description}
+                </Typography>
+                <Typography component="h5" variant="h5">
+                  ${oneTool.dailyCost}
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  }
 }
 
 SingleLineGridList.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SingleLineGridList);
+const mapStateToProps = state => ({
+  oneTool: state.login.oneTool
+});
+export default connect(
+  mapStateToProps,
+  { getOneTool }
+)(withStyles(styles)(SingleLineGridList));

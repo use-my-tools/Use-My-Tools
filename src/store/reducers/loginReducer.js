@@ -22,7 +22,9 @@ import {
   HANDLE_MODAL_CLOSE,
   HANDLE_MODAL_UPLOAD_OPEN,
   HANDLE_MODAL_UPLOAD_CLOSE,
-  HANDLE_UPLOAD_ID
+  HANDLE_UPLOAD_ID,
+  GET_ONE_TOOL_FAILED,
+  GET_ONE_TOOL_SUCCESS
 } from "../types/index";
 
 const initialState = {
@@ -59,7 +61,8 @@ const initialState = {
   lastPage: 0,
   modalOpen: false,
   modalUploadOpen: false,
-  uploadingTo: null
+  uploadingTo: null,
+  oneTool: []
 };
 
 const login = (state = initialState, action) => {
@@ -151,6 +154,22 @@ const login = (state = initialState, action) => {
         message: action.payload,
         variant: "error",
         modalUploadOpen: false
+      };
+
+    case GET_ONE_TOOL_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        message: action.payload,
+        variant: "error"
+      };
+
+    case GET_ONE_TOOL_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        oneTool: action.payload
       };
 
     case CLEAR_USER:

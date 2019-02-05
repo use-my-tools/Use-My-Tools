@@ -6,11 +6,11 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-
+import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import Modal from "../../components/Modal";
-import { clearUser, getTools } from "../../store/actions";
+import { clearUser } from "../../store/actions";
 import Pagination from "../Pagination";
 import ModalUpload from "../ModalUpload";
 import Carousel from "../Carousel";
@@ -147,8 +147,13 @@ const Items = props => {
                     <CardActions>
                       <ModalUpload tool={toolItem.id} />
 
-                      <Button size="small" color="primary">
-                        Edit
+                      <Button
+                        component={Link}
+                        to={`/dashboard/tools/${toolItem.id}`}
+                        size="small"
+                        color="primary"
+                      >
+                        View
                       </Button>
                     </CardActions>
                   </Card>

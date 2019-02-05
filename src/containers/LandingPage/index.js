@@ -137,7 +137,12 @@ class LandingPage extends React.Component {
                           <Typography>{tool.description}</Typography>
                         </CardContent>
                         <CardActions>
-                          <Button size="small" color="primary">
+                          <Button
+                            component={Link}
+                            to={`/login`}
+                            size="small"
+                            color="primary"
+                          >
                             View
                           </Button>
                         </CardActions>
