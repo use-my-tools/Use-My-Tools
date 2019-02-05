@@ -84,7 +84,7 @@ class TextMobileStepper extends React.Component {
           src={
             toolImages.length > 0
               ? toolImages[activeStep].url
-              : tutorialSteps[activeStep].imgPath
+              : "https://www.pappasbros.gr/images/no-image.jpg"
           }
           alt={""}
         />
