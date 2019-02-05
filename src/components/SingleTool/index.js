@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+import Carousel from "../Carousel";
 import { getOneTool } from "../../store/actions/index";
 import { connect } from "react-redux";
 const styles = theme => ({
@@ -25,8 +26,16 @@ const styles = theme => ({
     background:
       "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
   },
+  paperCarousel: {
+    height: "100%",
+    width: "40vw",
+    padding: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   paper: {
-    height: "100vh",
+    height: "100%",
     width: "40vw",
     padding: 20
   }
@@ -48,19 +57,9 @@ class SingleLineGridList extends React.Component {
             spacing={32}
           >
             <Grid item>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paperCarousel}>
                 {oneTool && oneTool.images ? (
-                  oneTool.images.map((image, i) => {
-                    return (
-                      <img
-                        key={i}
-                        width="100%"
-                        height="100%"
-                        src={image.url}
-                        alt="Paella dish"
-                      />
-                    );
-                  })
+                  <Carousel toolImages={oneTool.images} />
                 ) : (
                   <h1>NO IMAGES FOUND</h1>
                 )}
