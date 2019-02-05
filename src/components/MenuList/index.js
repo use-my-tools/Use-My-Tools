@@ -19,13 +19,13 @@ export const mainListItems = (
     </ListItem>
     <ListItem button component={Link} to="/dashboard/mytools">
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="My Tools" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <PeopleIcon />
+        <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItem>

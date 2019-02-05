@@ -9,8 +9,9 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
-import { clearUser, getTools } from "../../store/actions";
-import Pagination from "../Pagination";
+import Modal from "../../components/Modal";
+import { clearUser, getMyTools } from "../../store/actions";
+import ModalUpload from "../ModalUpload";
 import Carousel from "../Carousel";
 const drawerWidth = 240;
 
@@ -121,19 +122,22 @@ const styles = theme => ({
   }
 });
 
-class Items extends React.Component {
+class MyTools extends React.Component {
   componentDidMount = () => {
-    this.props.getTools();
+    this.props.getMyTools();
+    console.log(this.props);
   };
   render() {
-    const { classes, tools } = this.props;
+    const { classes, myTools } = this.props;
+
     return (
       <>
+        <Modal />
         <div className={classNames(classes.layout, classes.cardGrid)}>
           {/* End hero unit */}
           <Grid container spacing={40}>
-            {tools.data &&
-              tools.data.map(toolItem => {
+            {myTools &&
+              myTools.map(toolItem => {
                 return (
                   <Grid item key={toolItem.id} xs={12} sm={6} md={4} lg={3}>
                     <Card className={classes.card}>
@@ -145,6 +149,8 @@ class Items extends React.Component {
                         <Typography>{toolItem.description}</Typography>
                       </CardContent>
                       <CardActions>
+                        <ModalUpload tool={toolItem.id} />
+
                         <Button
                           component={Link}
                           to={`/dashboard/tools/${toolItem.id}`}
@@ -160,7 +166,6 @@ class Items extends React.Component {
               })}
           </Grid>
         </div>
-        <Pagination />
       </>
     );
   }
@@ -168,10 +173,10 @@ class Items extends React.Component {
 
 const mapStateToProps = state => ({
   loggedInUser: state.login.loggedInUser,
-  tools: state.login.tools
+  myTools: state.login.myTools
 });
 
 export default connect(
   mapStateToProps,
-  { clearUser, getTools }
-)(withStyles(styles)(Items));
+  { clearUser, getMyTools }
+)(withStyles(styles)(MyTools));

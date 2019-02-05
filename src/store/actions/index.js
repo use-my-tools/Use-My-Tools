@@ -25,7 +25,8 @@ import {
   HANDLE_MODAL_UPLOAD_CLOSE,
   HANDLE_UPLOAD_ID,
   GET_ONE_TOOL_FAILED,
-  GET_ONE_TOOL_SUCCESS
+  GET_ONE_TOOL_SUCCESS,
+  GET_MY_TOOLS_SUCCESS
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -79,6 +80,19 @@ export const addNewTool = tool => dispatch => {
     });
 };
 
+export const getMyTools = () => dispatch => {
+  dispatch({ type: LOADING });
+
+  axios
+    .get(
+      `https://tools-backend.herokuapp.com/api/tools/user/${
+        window.localStorage.user_id
+      }`
+    )
+    .then(res => dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data }))
+    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
+
 export const getTools = () => dispatch => {
   dispatch({ type: LOADING });
 
@@ -130,9 +144,7 @@ export const pagination = page => dispatch => {
   axios
     .get(`https://tools-backend.herokuapp.com/api/tools?count=12&page=${page}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
-    .catch(error =>
-      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message })
-    );
+    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
 };
 
 export const handleToolChange = e => {

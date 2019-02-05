@@ -24,7 +24,8 @@ import {
   HANDLE_MODAL_UPLOAD_CLOSE,
   HANDLE_UPLOAD_ID,
   GET_ONE_TOOL_FAILED,
-  GET_ONE_TOOL_SUCCESS
+  GET_ONE_TOOL_SUCCESS,
+  GET_MY_TOOLS_SUCCESS
 } from "../types/index";
 
 const initialState = {
@@ -62,7 +63,8 @@ const initialState = {
   modalOpen: false,
   modalUploadOpen: false,
   uploadingTo: null,
-  oneTool: []
+  oneTool: [],
+  myTools: []
 };
 
 const login = (state = initialState, action) => {
@@ -232,6 +234,13 @@ const login = (state = initialState, action) => {
         open: true,
         variant: "error",
         message: "Failed to get tools"
+      };
+
+    case GET_MY_TOOLS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        myTools: action.payload
       };
     case NEW_TOOL_ADDED:
       return {

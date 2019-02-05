@@ -17,6 +17,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { clearUser, getTools } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
 import Items from "../../components/Items";
+import MyTools from "../../components/MyTools";
 import SingleTool from "../../components/SingleTool";
 import { Route } from "react-router-dom";
 const drawerWidth = 240;
@@ -231,6 +232,7 @@ class Dashboard extends React.Component {
             path="/dashboard/tools/:id"
             render={props => <SingleTool {...props} />}
           />
+          <Route exact path="/dashboard/mytools" component={MyTools} />
         </main>
       </div>
     );
