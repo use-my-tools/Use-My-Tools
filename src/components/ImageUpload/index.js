@@ -41,7 +41,6 @@ const ImageUpload = props => {
       </label>
       <Button
         onClick={() => {
-          window.location.href = "/dashboard";
           uploadImages(uploadingTo, tool.image);
         }}
         type="submit"

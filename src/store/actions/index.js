@@ -96,7 +96,10 @@ export const uploadImages = (tool_id, image) => dispatch => {
   formData.append("tool_id", tool_id);
   axios
     .post("https://tools-backend.herokuapp.com/api/upload/image", formData)
-    .then(res => dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: res.data }))
+    .then(res => {
+      dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: res.data });
+      window.location.href = "/dashboard";
+    })
     .catch(error =>
       dispatch({
         type: IMAGE_UPLOAD_FAILED,
