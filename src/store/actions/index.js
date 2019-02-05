@@ -26,7 +26,8 @@ import {
   HANDLE_UPLOAD_ID,
   GET_ONE_TOOL_FAILED,
   GET_ONE_TOOL_SUCCESS,
-  GET_MY_TOOLS_SUCCESS
+  GET_MY_TOOLS_SUCCESS,
+  DELETE_TOOL_SUCCESS
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -72,25 +73,11 @@ export const addNewTool = tool => dispatch => {
   axios
     .post("https://tools-backend.herokuapp.com/api/tools", tool, config)
     .then(res => {
-      console.log(res.data);
-      dispatch({ type: NEW_TOOL_ADDED, payload: res.data });
+      dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data });
     })
     .catch(error => {
       dispatch({ type: NEW_TOOL_FAILED, payload: error });
     });
-};
-
-export const getMyTools = () => dispatch => {
-  dispatch({ type: LOADING });
-
-  axios
-    .get(
-      `https://tools-backend.herokuapp.com/api/tools/user/${
-        window.localStorage.user_id
-      }`
-    )
-    .then(res => dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data }))
-    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
 };
 
 export const getTools = () => dispatch => {
@@ -114,7 +101,7 @@ export const uploadImages = (tool_id, image) => dispatch => {
     .post("https://tools-backend.herokuapp.com/api/upload/image", formData)
     .then(res => {
       dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: res.data });
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/mytools";
     })
     .catch(error =>
       dispatch({
@@ -136,6 +123,36 @@ export const getOneTool = id => dispatch => {
         payload: "Failed to get one tool"
       })
     );
+};
+
+export const getMyTools = () => dispatch => {
+  dispatch({ type: LOADING });
+
+  axios
+    .get(
+      `https://tools-backend.herokuapp.com/api/tools/user/${
+        window.localStorage.user_id
+      }`
+    )
+    .then(res => dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data }))
+    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
+
+export const deleteTool = id => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+  axios
+    .delete(`https://tools-backend.herokuapp.com/api/tools/${id}`, config)
+    .then(res => {
+      dispatch({ type: DELETE_TOOL_SUCCESS, payload: res.data });
+    })
+    .catch(error => {
+      dispatch({ type: GET_TOOLS_ERROR, payload: error });
+    });
 };
 
 export const pagination = page => dispatch => {

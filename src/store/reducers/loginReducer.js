@@ -25,7 +25,8 @@ import {
   HANDLE_UPLOAD_ID,
   GET_ONE_TOOL_FAILED,
   GET_ONE_TOOL_SUCCESS,
-  GET_MY_TOOLS_SUCCESS
+  GET_MY_TOOLS_SUCCESS,
+  DELETE_TOOL_SUCCESS
 } from "../types/index";
 
 const initialState = {
@@ -91,6 +92,13 @@ const login = (state = initialState, action) => {
           [action.e.target.name]: action.e.target.files[0],
           tool_id: 1
         }
+      };
+
+    case DELETE_TOOL_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        myTools: action.payload
       };
 
     case HANDLE_MODAL_OPEN:
