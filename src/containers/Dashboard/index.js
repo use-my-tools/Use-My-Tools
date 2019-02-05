@@ -25,6 +25,8 @@ import { clearUser, getTools } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
 import Pagination from "../../components/Pagination";
 import ModalUpload from "../../components/ModalUpload";
+import Carousel from "../../components/Carousel";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -240,7 +242,9 @@ class Dashboard extends React.Component {
                   return (
                     <Grid item key={toolItem.id} xs={12} sm={6} md={4} lg={3}>
                       <Card className={classes.card}>
-                        <CardMedia
+                        <Carousel toolImages={toolItem.images} />
+
+                        {/* <CardMedia
                           className={classes.cardMedia}
                           image={
                             toolItem.images.length > 0
@@ -248,7 +252,7 @@ class Dashboard extends React.Component {
                               : "https://www.pbs.org/program/lunchbox_plugins/s/photogallery/img/no-image-available.jpg"
                           }
                           title="Image title"
-                        />
+                        /> */}
                         <CardContent className={classes.cardContent}>
                           <Typography gutterBottom variant="h5" component="h2">
                             {toolItem.name}
