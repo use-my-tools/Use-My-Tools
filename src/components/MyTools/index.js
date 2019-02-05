@@ -10,7 +10,12 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import Modal from "../../components/Modal";
-import { clearUser, getMyTools, deleteTool } from "../../store/actions";
+import {
+  clearUser,
+  getMyTools,
+  deleteTool,
+  populateForm
+} from "../../store/actions";
 import ModalUpload from "../ModalUpload";
 import Carousel from "../Carousel";
 const drawerWidth = 240;
@@ -127,7 +132,7 @@ class MyTools extends React.Component {
     this.props.getMyTools();
   };
   render() {
-    const { classes, myTools, deleteTool } = this.props;
+    const { classes, myTools, deleteTool, populateForm } = this.props;
 
     return (
       <>
@@ -161,8 +166,7 @@ class MyTools extends React.Component {
                       </CardActions>
                       <CardActions>
                         <Button
-                          component={Link}
-                          to={`/dashboard/tools/${toolItem.id}`}
+                          onClick={() => populateForm(toolItem)}
                           size="small"
                           color="primary"
                         >
@@ -195,5 +199,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { clearUser, getMyTools, deleteTool }
+  { clearUser, getMyTools, deleteTool, populateForm }
 )(withStyles(styles)(MyTools));

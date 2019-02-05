@@ -12,7 +12,8 @@ import Pricing from "../Pricing";
 import {
   addNewTool,
   uploadImages,
-  handleModalClose
+  handleModalClose,
+  editTool
 } from "../../store/actions/index";
 import { connect } from "react-redux";
 const styles = theme => ({
@@ -61,14 +62,14 @@ class VerticalLinearStepper extends React.Component {
     }));
 
     if (this.state.activeStep === getSteps().length - 1) {
-      this.props.addNewTool(this.props.tool);
+      if (this.props.isEditing) {
+        this.props.editTool(this.props.tool);
+      } else {
+        this.props.addNewTool(this.props.tool);
+      }
+
       this.props.handleModalClose();
     }
-
-    // if (this.state.activeStep === getSteps().length - 1) {
-    //   console.log(this.props.tool, this.props.tool.image);
-    //   this.props.uploadImages(this.props.tool.tool_id, this.props.tool.image);
-    // }
   };
 
   handleBack = () => {
@@ -149,10 +150,11 @@ VerticalLinearStepper.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  tool: state.login.tool
+  tool: state.login.tool,
+  isEditing: state.login.isEditing
 });
 
 export default connect(
   mapStateToProps,
-  { addNewTool, uploadImages, handleModalClose }
+  { addNewTool, uploadImages, handleModalClose, editTool }
 )(withStyles(styles)(VerticalLinearStepper));

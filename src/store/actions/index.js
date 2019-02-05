@@ -9,7 +9,6 @@ import {
   HANDLE_CLOSE,
   HANDLE_ERRORS,
   CLEAR_USER,
-  NEW_TOOL_ADDED,
   NEW_TOOL_FAILED,
   GET_TOOLS_SUCCESS,
   GET_TOOLS_ERROR,
@@ -27,7 +26,8 @@ import {
   GET_ONE_TOOL_FAILED,
   GET_ONE_TOOL_SUCCESS,
   GET_MY_TOOLS_SUCCESS,
-  DELETE_TOOL_SUCCESS
+  DELETE_TOOL_SUCCESS,
+  POPULATE_FORM
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -136,6 +136,35 @@ export const getMyTools = () => dispatch => {
     )
     .then(res => dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data }))
     .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
+
+export const populateForm = tool => {
+  return {
+    type: POPULATE_FORM,
+    tool
+  };
+};
+
+export const editTool = tool => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+
+  axios
+    .put(
+      `https://tools-backend.herokuapp.com/api/tools/${tool.tool_id}`,
+      tool,
+      config
+    )
+    .then(res => {
+      dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data });
+    })
+    .catch(error => {
+      dispatch({ type: NEW_TOOL_FAILED, payload: error });
+    });
 };
 
 export const deleteTool = id => dispatch => {

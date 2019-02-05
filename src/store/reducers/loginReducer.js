@@ -26,7 +26,8 @@ import {
   GET_ONE_TOOL_FAILED,
   GET_ONE_TOOL_SUCCESS,
   GET_MY_TOOLS_SUCCESS,
-  DELETE_TOOL_SUCCESS
+  DELETE_TOOL_SUCCESS,
+  POPULATE_FORM
 } from "../types/index";
 
 const initialState = {
@@ -65,7 +66,8 @@ const initialState = {
   modalUploadOpen: false,
   uploadingTo: null,
   oneTool: [],
-  myTools: []
+  myTools: [],
+  isEditing: false
 };
 
 const login = (state = initialState, action) => {
@@ -107,6 +109,24 @@ const login = (state = initialState, action) => {
         modalOpen: true
       };
 
+    case POPULATE_FORM:
+      return {
+        ...state,
+        tool: {
+          name: action.tool.name,
+          brand: action.tool.brand,
+          category: action.tool.category,
+          address: action.tool.address,
+          owner_id: action.tool.owner_id,
+          description: action.tool.description,
+          dailyCost: action.tool.dailyCost,
+          deposit: action.tool.deposit,
+          tool_id: action.tool.id
+        },
+        modalOpen: true,
+        isEditing: true
+      };
+
     case HANDLE_MODAL_CLOSE:
       return {
         ...state,
@@ -120,7 +140,8 @@ const login = (state = initialState, action) => {
           description: "",
           dailyCost: "",
           deposit: ""
-        }
+        },
+        isEditing: false
       };
 
     case HANDLE_MODAL_UPLOAD_OPEN:
