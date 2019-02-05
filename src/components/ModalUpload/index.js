@@ -51,6 +51,8 @@ class SimpleModal extends React.Component {
             console.log(tool);
             this.handleOpen();
           }}
+          size="small"
+          color="primary"
         >
           Upload Images
         </Button>
