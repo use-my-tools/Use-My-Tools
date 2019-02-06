@@ -33,7 +33,7 @@ export const mainListItems = (
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Rented Tools" />
     </ListItem>
     {/*
     <ListItem button>
