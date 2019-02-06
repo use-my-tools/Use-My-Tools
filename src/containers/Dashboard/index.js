@@ -199,24 +199,6 @@ class Dashboard extends React.Component {
             >
               Dashboard
             </Typography>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: indigo[500] }}
-              className={classes.button}
-              onClick={() => changeColor(indigo[500])}
-            />
-            <Button
-              variant="contained"
-              style={{ backgroundColor: red[500] }}
-              className={classes.button}
-              onClick={() => changeColor(red[500])}
-            />
-            <Button
-              variant="contained"
-              style={{ backgroundColor: lightGreen[500] }}
-              className={classes.button}
-              onClick={() => changeColor(lightGreen[500])}
-            />
 
             <IconButton
               onClick={() => {
@@ -254,6 +236,24 @@ class Dashboard extends React.Component {
           <Typography variant="h4" gutterBottom component="h2">
             Welcome {window.localStorage.firstname.toUpperCase()}!
           </Typography>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: indigo[500] }}
+            className={classes.button}
+            onClick={() => changeColor(indigo[500])}
+          />
+          <Button
+            variant="contained"
+            style={{ backgroundColor: red[500] }}
+            className={classes.button}
+            onClick={() => changeColor(red[500])}
+          />
+          <Button
+            variant="contained"
+            style={{ backgroundColor: lightGreen[500] }}
+            className={classes.button}
+            onClick={() => changeColor(lightGreen[500])}
+          />
           <Route exact path="/dashboard" component={Items} />
           <Route
             exact
