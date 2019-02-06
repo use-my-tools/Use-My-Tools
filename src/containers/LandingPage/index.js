@@ -27,7 +27,8 @@ const styles = theme => ({
   },
   heroUnit: {
     backgroundColor: theme.palette.background.paper,
-    paddingTop: 50
+    paddingTop: 50,
+    overflowY: "hidden"
   },
   heroContent: {
     maxWidth: 600,

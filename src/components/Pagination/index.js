@@ -26,6 +26,7 @@ class DotsMobileStepper extends React.Component {
     }));
 
     this.props.pagination(this.state.activeStep + 2);
+    window.scrollTo(0, 0);
   };
 
   handleBack = () => {
@@ -33,6 +34,7 @@ class DotsMobileStepper extends React.Component {
       activeStep: state.activeStep - 1
     }));
     this.props.pagination(this.state.activeStep - 1);
+    window.scrollTo(0, 0);
   };
 
   render() {
