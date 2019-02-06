@@ -278,7 +278,7 @@ const login = (state = initialState, action) => {
         isLoading: false,
         open: true,
         variant: "error",
-        message: "Failed to get tools"
+        message: action.payload
       };
 
     case GET_MY_TOOLS_SUCCESS:

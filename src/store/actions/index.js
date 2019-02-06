@@ -82,6 +82,27 @@ export const addNewTool = tool => dispatch => {
     });
 };
 
+export const reviewUser = (stars, review, for_user) => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+  axios
+    .post(
+      `https://tools-backend.herokuapp.com/api/reviews`,
+      { stars, review, for_user },
+      config
+    )
+    .then(res => {
+      dispatch({ type: GET_ALL_PROFILES_SUCCESS, payload: res.data });
+    })
+    .catch(error => {
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message });
+    });
+};
+
 export const getUserProfile = () => dispatch => {
   dispatch({ type: LOADING });
   const config = {

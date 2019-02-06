@@ -14,7 +14,7 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { clearUser, getTools } from "../../store/actions";
+import { clearUser, getTools, handleClose } from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
 import Items from "../../components/Items";
 import MyTools from "../../components/MyTools";
@@ -26,7 +26,7 @@ import lightGreen from "@material-ui/core/colors/lightGreen";
 import indigo from "@material-ui/core/colors/indigo";
 import red from "@material-ui/core/colors/red";
 import Button from "@material-ui/core/Button";
-
+import Snack from "../../components/Snack";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -159,7 +159,17 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes, history, clearUser, isLoading, changeColor } = this.props;
+    const {
+      classes,
+      history,
+      clearUser,
+      isLoading,
+      changeColor,
+      open,
+      handleClose,
+      message,
+      variant
+    } = this.props;
     if (!window.localStorage.token) {
       history.push("/login");
     }
@@ -212,6 +222,12 @@ class Dashboard extends React.Component {
             </IconButton>
           </Toolbar>
         </AppBar>
+        <Snack
+          open={open}
+          handleClose={handleClose}
+          message={message}
+          variant={variant}
+        />
         <Drawer
           variant="permanent"
           classes={{
@@ -275,10 +291,13 @@ Dashboard.propTypes = {
 const mapStateToProps = state => ({
   loggedInUser: state.login.loggedInUser,
   tools: state.login.tools,
-  isLoading: state.login.isLoading
+  isLoading: state.login.isLoading,
+  open: state.login.open,
+  message: state.login.message,
+  variant: state.login.variant
 });
 
 export default connect(
   mapStateToProps,
-  { clearUser, getTools }
+  { clearUser, getTools, handleClose }
 )(withStyles(styles)(Dashboard));

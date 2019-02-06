@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUserProfile, getAllUsers } from "../../store/actions";
+import { getUserProfile, getAllUsers, reviewUser } from "../../store/actions";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -10,6 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import StarRatingComponent from "react-star-rating-component";
 import Grid from "@material-ui/core/Grid";
+import StarRatings from "react-star-ratings";
 
 const styles = theme => ({
   card: {
@@ -59,6 +60,10 @@ class UserProfile extends React.Component {
     this.props.getUserProfile();
     this.props.getAllUsers();
   };
+
+  changeRating = (newRating, name, id) => {
+    this.props.reviewUser(newRating, "TESTING", id);
+  };
   render() {
     const { userProfile, classes, allUsers } = this.props;
     return (
@@ -100,7 +105,7 @@ class UserProfile extends React.Component {
             <Grid item>
               {allUsers.data &&
                 allUsers.data.map(user => (
-                  <Card className={classes.card}>
+                  <Card key={user.id} className={classes.card}>
                     <CardActionArea>
                       <CardMedia
                         className={classes.media}
@@ -115,12 +120,15 @@ class UserProfile extends React.Component {
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
-                      <StarRatingComponent
-                        name="rate"
-                        editing={false}
-                        starCount={5}
-                        starColor="yellow"
-                        value={user.stars}
+                      <StarRatings
+                        rating={user.stars}
+                        starRatedColor="yellow"
+                        changeRating={(newRating, name) =>
+                          this.changeRating(newRating, name, user.id)
+                        }
+                        numberOfStars={5}
+                        starDimension="20px"
+                        name="rating"
                       />
                     </CardActions>
                   </Card>
@@ -140,5 +148,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUserProfile, getAllUsers }
+  { getUserProfile, getAllUsers, reviewUser }
 )(withStyles(styles)(UserProfile));
