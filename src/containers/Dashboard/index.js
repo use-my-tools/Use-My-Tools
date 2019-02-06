@@ -14,7 +14,13 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import { connect } from "react-redux";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { clearUser, getTools, handleClose } from "../../store/actions";
+import {
+  clearUser,
+  getTools,
+  handleClose,
+  handleSearchChange,
+  handleSearch
+} from "../../store/actions";
 import { mainListItems } from "../../components/MenuList";
 import Items from "../../components/Items";
 import MyTools from "../../components/MyTools";
@@ -27,9 +33,16 @@ import indigo from "@material-ui/core/colors/indigo";
 import red from "@material-ui/core/colors/red";
 import Button from "@material-ui/core/Button";
 import Snack from "../../components/Snack";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
+  grow: {
+    flexGrow: 1
+  },
   root: {
     display: "flex"
   },
@@ -133,6 +146,45 @@ const styles = theme => ({
   },
   pagination: {
     textAlign: "center"
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25)
+    },
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing.unit * 3,
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputRoot: {
+    color: "inherit",
+    width: "100%"
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: 200
+    }
   }
 });
 
@@ -168,7 +220,10 @@ class Dashboard extends React.Component {
       open,
       handleClose,
       message,
-      variant
+      variant,
+      handleSearchChange,
+      search,
+      handleSearch
     } = this.props;
     if (!window.localStorage.token) {
       history.push("/login");
@@ -212,6 +267,31 @@ class Dashboard extends React.Component {
             >
               Dashboard
             </Typography>
+            {history.location.pathname === "/dashboard" ? (
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    handleSearch(search);
+                  }}
+                >
+                  <InputBase
+                    placeholder="Search…"
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput
+                    }}
+                    onChange={handleSearchChange}
+                    name="search"
+                    value={search}
+                  />
+                </form>
+              </div>
+            ) : null}
+            <div className={classes.grow} />
 
             <IconButton
               onClick={() => {
@@ -297,10 +377,11 @@ const mapStateToProps = state => ({
   isLoading: state.login.isLoading,
   open: state.login.open,
   message: state.login.message,
-  variant: state.login.variant
+  variant: state.login.variant,
+  search: state.login.search
 });
 
 export default connect(
   mapStateToProps,
-  { clearUser, getTools, handleClose }
+  { clearUser, getTools, handleClose, handleSearchChange, handleSearch }
 )(withStyles(styles)(Dashboard));

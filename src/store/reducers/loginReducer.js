@@ -29,7 +29,8 @@ import {
   DELETE_TOOL_SUCCESS,
   POPULATE_FORM,
   GET_USER_PROFILE_SUCCESS,
-  GET_ALL_PROFILES_SUCCESS
+  GET_ALL_PROFILES_SUCCESS,
+  HANDLE_SEARCH_CHANGE
 } from "../types/index";
 
 const initialState = {
@@ -71,11 +72,17 @@ const initialState = {
   myTools: [],
   isEditing: false,
   userProfile: {},
-  allUsers: []
+  allUsers: [],
+  search: ""
 };
 
 const login = (state = initialState, action) => {
   switch (action.type) {
+    case HANDLE_SEARCH_CHANGE:
+      return {
+        ...state,
+        search: action.e.target.value
+      };
     case GET_ALL_PROFILES_SUCCESS:
       return {
         ...state,
@@ -116,7 +123,8 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        myTools: action.payload
+        myTools: action.payload,
+        search: ""
       };
 
     case HANDLE_MODAL_OPEN:

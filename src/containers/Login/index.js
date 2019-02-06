@@ -116,6 +116,9 @@ function SignIn(props) {
             <Link className={classes.registerLink} to="/register">
               Don't Have an Account? Sign Up
             </Link>
+            {/* <Link className={classes.registerLink} to="/passwordreset">
+              Reset Password
+            </Link> */}
             <Button
               type="submit"
               fullWidth

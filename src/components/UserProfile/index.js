@@ -65,7 +65,17 @@ class UserProfile extends React.Component {
   };
 
   changeRating = (newRating, name, id) => {
-    this.props.reviewUser(newRating, "TESTING", id);
+    if (newRating === 5) {
+      this.props.reviewUser(newRating, "This guy is AWESOME!!!", id);
+    } else if (newRating >= 3) {
+      this.props.reviewUser(newRating, "He is Alright", id);
+    } else {
+      this.props.reviewUser(
+        newRating,
+        "This guy is TERRIBLE WOULOD NOT RECOMMEND",
+        id
+      );
+    }
   };
   render() {
     const { userProfile, classes, allUsers } = this.props;

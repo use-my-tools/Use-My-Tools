@@ -29,9 +29,30 @@ import {
   DELETE_TOOL_SUCCESS,
   POPULATE_FORM,
   GET_USER_PROFILE_SUCCESS,
-  GET_ALL_PROFILES_SUCCESS
+  GET_ALL_PROFILES_SUCCESS,
+  HANDLE_SEARCH_CHANGE
 } from "../types/index";
 
+export const handleSearchChange = e => {
+  return {
+    type: HANDLE_SEARCH_CHANGE,
+    e
+  };
+};
+
+export const handleSearch = search => dispatch => {
+  dispatch({ type: LOADING });
+
+  axios
+    .get(`http://tools-backend.herokuapp.com/api/tools/?name=${search}`)
+    .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
+    .catch(error =>
+      dispatch({
+        type: GET_ONE_TOOL_FAILED,
+        payload: error.response.data.message
+      })
+    );
+};
 export const registerUser = user => dispatch => {
   dispatch({ type: LOADING });
 
