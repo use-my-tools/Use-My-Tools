@@ -23,6 +23,7 @@ import {
 import { mainListItems } from "../../components/MenuList";
 import Items from "../../components/Items";
 import MyTools from "../../components/MyTools";
+import RentedTools from "../../components/RentedTools";
 import SingleTool from "../../components/SingleTool";
 import { Route } from "react-router-dom";
 import Loader from "../../components/Loader";
@@ -360,6 +361,7 @@ class Dashboard extends React.Component {
           />
           <Route exact path="/dashboard/mytools" component={MyTools} />
           <Route exact path="/dashboard/profile" component={UserProfile} />
+          <Route exact path="/dashboard/renting" component={RentedTools} />
         </main>
       </div>
     );

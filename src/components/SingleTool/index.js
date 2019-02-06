@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Carousel from "../Carousel";
-import { getOneTool } from "../../store/actions/index";
+import { getOneTool, rentTool } from "../../store/actions/index";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Badge from "@material-ui/core/Badge";
@@ -53,7 +53,7 @@ class SingleLineGridList extends React.Component {
     this.props.getOneTool(this.props.match.params.id);
   };
   render() {
-    const { classes, oneTool } = this.props;
+    const { classes, oneTool, rentTool } = this.props;
     return (
       <Grid container className={classes.root} spacing={16}>
         <Grid item xs={12}>
@@ -110,6 +110,7 @@ class SingleLineGridList extends React.Component {
                   color="primary"
                   className={classes.button}
                   disabled={!oneTool.isAvailable}
+                  onClick={() => rentTool(oneTool.id)}
                 >
                   Rent Now!
                 </Button>
@@ -131,5 +132,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getOneTool }
+  { getOneTool, rentTool }
 )(withStyles(styles)(SingleLineGridList));

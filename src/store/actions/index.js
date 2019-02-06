@@ -30,9 +30,71 @@ import {
   POPULATE_FORM,
   GET_USER_PROFILE_SUCCESS,
   GET_ALL_PROFILES_SUCCESS,
-  HANDLE_SEARCH_CHANGE
+  HANDLE_SEARCH_CHANGE,
+  GET_RENTED_TOOLS_SUCCESS
 } from "../types/index";
 
+export const returnTool = id => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+
+  axios
+    .post(
+      `https://tools-backend.herokuapp.com/api/tools/${id}/return`,
+      null,
+      config
+    )
+    .then(res => {
+      console.log(res.data);
+      dispatch({ type: GET_RENTED_TOOLS_SUCCESS, payload: res.data });
+    })
+    .catch(error => {
+      dispatch({ type: GET_ONE_TOOL_FAILED, payload: error });
+    });
+};
+export const getRentedTools = () => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+
+  axios
+    .get(`https://tools-backend.herokuapp.com/api/tools/rented`, config)
+    .then(res => {
+      console.log(res.data);
+      dispatch({ type: GET_RENTED_TOOLS_SUCCESS, payload: res.data });
+    })
+    .catch(error => {
+      dispatch({ type: GET_ONE_TOOL_FAILED, payload: error });
+    });
+};
+export const rentTool = id => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+
+  axios
+    .post(
+      `https://tools-backend.herokuapp.com/api/tools/${id}/rent`,
+      null,
+      config
+    )
+    .then(res => {
+      dispatch({ type: GET_ONE_TOOL_SUCCESS, payload: res.data });
+    })
+    .catch(error => {
+      dispatch({ type: GET_ONE_TOOL_FAILED, payload: error });
+    });
+};
 export const handleSearchChange = e => {
   return {
     type: HANDLE_SEARCH_CHANGE,
@@ -141,7 +203,9 @@ export const getUserProfile = () => dispatch => {
     .then(res => {
       dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: res.data });
     })
-    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+    .catch(error =>
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message })
+    );
 };
 
 export const getTools = () => dispatch => {
@@ -153,7 +217,9 @@ export const getTools = () => dispatch => {
       dispatch({ type: SET_PAGINATION, payload: res.data });
       dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data });
     })
-    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+    .catch(error =>
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message })
+    );
 };
 
 export const uploadImages = (tool_id, image) => dispatch => {
@@ -199,7 +265,9 @@ export const getMyTools = () => dispatch => {
       }`
     )
     .then(res => dispatch({ type: GET_MY_TOOLS_SUCCESS, payload: res.data }))
-    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+    .catch(error =>
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message })
+    );
 };
 
 export const populateForm = tool => {
@@ -221,7 +289,9 @@ export const getAllUsers = () => dispatch => {
     .then(res => {
       dispatch({ type: GET_ALL_PROFILES_SUCCESS, payload: res.data });
     })
-    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+    .catch(error =>
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message })
+    );
 };
 export const editTool = tool => dispatch => {
   dispatch({ type: LOADING });
@@ -258,7 +328,7 @@ export const deleteTool = id => dispatch => {
       dispatch({ type: DELETE_TOOL_SUCCESS, payload: res.data });
     })
     .catch(error => {
-      dispatch({ type: GET_TOOLS_ERROR, payload: error });
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message });
     });
 };
 
@@ -268,7 +338,9 @@ export const pagination = page => dispatch => {
   axios
     .get(`https://tools-backend.herokuapp.com/api/tools?count=12&page=${page}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
-    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+    .catch(error =>
+      dispatch({ type: GET_TOOLS_ERROR, payload: error.response.data.message })
+    );
 };
 
 export const handleToolChange = e => {

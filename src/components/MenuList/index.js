@@ -3,7 +3,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-// import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
 // import MoneyIcon from "@material-ui/icons/Money";
@@ -29,12 +29,13 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItem>
-    {/* <ListItem button>
+    <ListItem button component={Link} to="/dashboard/renting">
       <ListItemIcon>
-        <BarChartIcon />
+        <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItem>
+    {/*
     <ListItem button>
       <ListItemIcon>
         <MoneyIcon />

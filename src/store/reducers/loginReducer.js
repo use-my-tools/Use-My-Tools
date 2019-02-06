@@ -30,7 +30,8 @@ import {
   POPULATE_FORM,
   GET_USER_PROFILE_SUCCESS,
   GET_ALL_PROFILES_SUCCESS,
-  HANDLE_SEARCH_CHANGE
+  HANDLE_SEARCH_CHANGE,
+  GET_RENTED_TOOLS_SUCCESS
 } from "../types/index";
 
 const initialState = {
@@ -73,11 +74,18 @@ const initialState = {
   isEditing: false,
   userProfile: {},
   allUsers: [],
-  search: ""
+  search: "",
+  rentedTools: []
 };
 
 const login = (state = initialState, action) => {
   switch (action.type) {
+    case GET_RENTED_TOOLS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        rentedTools: action.payload
+      };
     case HANDLE_SEARCH_CHANGE:
       return {
         ...state,
