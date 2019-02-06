@@ -21,6 +21,7 @@ import MyTools from "../../components/MyTools";
 import SingleTool from "../../components/SingleTool";
 import { Route } from "react-router-dom";
 import Loader from "../../components/Loader";
+import UserProfile from "../../components/UserProfile";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -236,6 +237,7 @@ class Dashboard extends React.Component {
             render={props => <SingleTool {...props} />}
           />
           <Route exact path="/dashboard/mytools" component={MyTools} />
+          <Route exact path="/dashboard/profile" component={UserProfile} />
         </main>
       </div>
     );

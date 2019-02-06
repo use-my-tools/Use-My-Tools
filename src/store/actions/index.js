@@ -27,7 +27,9 @@ import {
   GET_ONE_TOOL_SUCCESS,
   GET_MY_TOOLS_SUCCESS,
   DELETE_TOOL_SUCCESS,
-  POPULATE_FORM
+  POPULATE_FORM,
+  GET_USER_PROFILE_SUCCESS,
+  GET_ALL_PROFILES_SUCCESS
 } from "../types/index";
 
 export const registerUser = user => dispatch => {
@@ -78,6 +80,26 @@ export const addNewTool = tool => dispatch => {
     .catch(error => {
       dispatch({ type: NEW_TOOL_FAILED, payload: error });
     });
+};
+
+export const getUserProfile = () => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+  axios
+    .get(
+      `https://tools-backend.herokuapp.com/api/users/${
+        window.localStorage.user_id
+      }`,
+      config
+    )
+    .then(res => {
+      dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: res.data });
+    })
+    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
 };
 
 export const getTools = () => dispatch => {
@@ -145,6 +167,20 @@ export const populateForm = tool => {
   };
 };
 
+export const getAllUsers = () => dispatch => {
+  dispatch({ type: LOADING });
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+  axios
+    .get(`https://tools-backend.herokuapp.com/api/users`, config)
+    .then(res => {
+      dispatch({ type: GET_ALL_PROFILES_SUCCESS, payload: res.data });
+    })
+    .catch(error => dispatch({ type: GET_TOOLS_ERROR, payload: error }));
+};
 export const editTool = tool => dispatch => {
   dispatch({ type: LOADING });
   const config = {

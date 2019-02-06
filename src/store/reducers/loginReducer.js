@@ -27,7 +27,9 @@ import {
   GET_ONE_TOOL_SUCCESS,
   GET_MY_TOOLS_SUCCESS,
   DELETE_TOOL_SUCCESS,
-  POPULATE_FORM
+  POPULATE_FORM,
+  GET_USER_PROFILE_SUCCESS,
+  GET_ALL_PROFILES_SUCCESS
 } from "../types/index";
 
 const initialState = {
@@ -67,11 +69,25 @@ const initialState = {
   uploadingTo: null,
   oneTool: [],
   myTools: [],
-  isEditing: false
+  isEditing: false,
+  userProfile: {},
+  allUsers: []
 };
 
 const login = (state = initialState, action) => {
   switch (action.type) {
+    case GET_ALL_PROFILES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allUsers: action.payload
+      };
+    case GET_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userProfile: action.payload
+      };
     case HANDLE_CHANGE:
       return {
         ...state,
