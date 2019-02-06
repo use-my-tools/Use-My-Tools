@@ -52,6 +52,9 @@ const styles = theme => ({
   },
   text: {
     padding: 30
+  },
+  reviews: {
+    display: "block"
   }
 });
 
@@ -130,6 +133,11 @@ class UserProfile extends React.Component {
                         starDimension="20px"
                         name="rating"
                       />
+                    </CardActions>
+                    <CardActions className={classes.reviews}>
+                      {user.reviews.map(review => (
+                        <Typography component="h5">{review.review}</Typography>
+                      ))}
                     </CardActions>
                   </Card>
                 ))}

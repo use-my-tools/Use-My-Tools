@@ -173,6 +173,9 @@ class Dashboard extends React.Component {
     if (!window.localStorage.token) {
       history.push("/login");
     }
+    if (open) {
+      setTimeout(() => handleClose(), 4000);
+    }
     return (
       <div className={classes.root}>
         <CssBaseline />
