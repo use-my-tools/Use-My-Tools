@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import Carousel from "../Carousel";
 import { getOneTool } from "../../store/actions/index";
 import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
+import Badge from "@material-ui/core/Badge";
+
 const styles = theme => ({
   root: {
     display: "flex",
@@ -63,7 +66,14 @@ class SingleLineGridList extends React.Component {
             <Grid item>
               <Paper className={classes.paperCarousel}>
                 {oneTool && oneTool.images ? (
-                  <Carousel toolImages={oneTool.images} />
+                  <Badge
+                    badgeContent={
+                      oneTool.isAvailable ? "AVAILABLE" : "NOT AVAILABLE"
+                    }
+                    color={oneTool.isAvailable ? "primary" : "secondary"}
+                  >
+                    <Carousel toolImages={oneTool.images} />
+                  </Badge>
                 ) : (
                   <h1>NO IMAGES FOUND</h1>
                 )}
@@ -95,6 +105,14 @@ class SingleLineGridList extends React.Component {
                 >
                   ${oneTool.dailyCost}
                 </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  disabled={!oneTool.isAvailable}
+                >
+                  Rent Now!
+                </Button>
               </Paper>
             </Grid>
           </Grid>
