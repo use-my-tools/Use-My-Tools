@@ -14,7 +14,8 @@ import StarRatings from "react-star-ratings";
 
 const styles = theme => ({
   card: {
-    maxWidth: 345,
+    maxWidth: 245,
+    minWidth: 245,
     marginBottom: 20
   },
   media: {

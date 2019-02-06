@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -366,10 +365,6 @@ class Dashboard extends React.Component {
     );
   }
 }
-
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
   loggedInUser: state.login.loggedInUser,

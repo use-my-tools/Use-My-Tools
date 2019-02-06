@@ -277,7 +277,8 @@ const login = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        tools: action.payload
+        tools: action.payload,
+        search: ""
       };
 
     case GET_TOOLS_ERROR:
