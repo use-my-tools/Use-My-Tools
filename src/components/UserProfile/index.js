@@ -73,7 +73,7 @@ class UserProfile extends React.Component {
     } else {
       this.props.reviewUser(
         newRating,
-        "This guy is TERRIBLE WOULOD NOT RECOMMEND",
+        "This guy is TERRIBLE WOULD NOT RECOMMEND",
         id
       );
     }

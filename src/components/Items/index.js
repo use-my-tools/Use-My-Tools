@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { clearUser, getTools } from "../../store/actions";
+import Badge from "@material-ui/core/Badge";
 import Pagination from "../Pagination";
 import Carousel from "../Carousel";
 const drawerWidth = 240;
@@ -136,25 +137,32 @@ class Items extends React.Component {
               tools.data.map(toolItem => {
                 return (
                   <Grid item key={toolItem.id} xs={12} sm={6} md={4} lg={3}>
-                    <Card className={classes.card}>
-                      <Carousel toolImages={toolItem.images} />
-                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {toolItem.name}
-                        </Typography>
-                        <Typography>{toolItem.description}</Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button
-                          component={Link}
-                          to={`/dashboard/tools/${toolItem.id}`}
-                          size="small"
-                          color="primary"
-                        >
-                          View
-                        </Button>
-                      </CardActions>
-                    </Card>
+                    <Badge
+                      badgeContent={
+                        toolItem.isAvailable ? "AVAILABLE" : "NOT AVAILABLE"
+                      }
+                      color={toolItem.isAvailable ? "primary" : "secondary"}
+                    >
+                      <Card className={classes.card}>
+                        <Carousel toolImages={toolItem.images} />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {toolItem.name}
+                          </Typography>
+                          <Typography>{toolItem.description}</Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button
+                            component={Link}
+                            to={`/dashboard/tools/${toolItem.id}`}
+                            size="small"
+                            color="primary"
+                          >
+                            View
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Badge>
                   </Grid>
                 );
               })}
