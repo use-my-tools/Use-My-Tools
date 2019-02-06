@@ -1,22 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getUserProfile, getAllUsers } from "../../store/actions";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import StarRatingComponent from "react-star-rating-component";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
   card: {
-    maxWidth: 345
+    maxWidth: 345,
+    marginBottom: 20
   },
   media: {
     height: 200
@@ -100,35 +98,33 @@ class UserProfile extends React.Component {
               </Card>
             </Grid>
             <Grid item>
-              <Paper className={classes.paper}>
-                {allUsers.data &&
-                  allUsers.data.map(user => (
-                    <Card className={classes.card}>
-                      <CardActionArea>
-                        <CardMedia
-                          className={classes.media}
-                          image={user.url}
-                          title="Contemplative Reptile"
-                          alt="..."
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {user.firstname} {user.lastname}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <CardActions>
-                        <StarRatingComponent
-                          name="rate"
-                          editing={false}
-                          starCount={5}
-                          starColor="yellow"
-                          value={user.stars}
-                        />
-                      </CardActions>
-                    </Card>
-                  ))}
-              </Paper>
+              {allUsers.data &&
+                allUsers.data.map(user => (
+                  <Card className={classes.card}>
+                    <CardActionArea>
+                      <CardMedia
+                        className={classes.media}
+                        image={user.url}
+                        title="Contemplative Reptile"
+                        alt="..."
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {user.firstname} {user.lastname}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <StarRatingComponent
+                        name="rate"
+                        editing={false}
+                        starCount={5}
+                        starColor="yellow"
+                        value={user.stars}
+                      />
+                    </CardActions>
+                  </Card>
+                ))}
             </Grid>
           </Grid>
         </Grid>
