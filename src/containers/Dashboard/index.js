@@ -22,6 +22,11 @@ import SingleTool from "../../components/SingleTool";
 import { Route } from "react-router-dom";
 import Loader from "../../components/Loader";
 import UserProfile from "../../components/UserProfile";
+import lightGreen from "@material-ui/core/colors/lightGreen";
+import indigo from "@material-ui/core/colors/indigo";
+import red from "@material-ui/core/colors/red";
+import Button from "@material-ui/core/Button";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -154,7 +159,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes, history, clearUser, isLoading } = this.props;
+    const { classes, history, clearUser, isLoading, changeColor } = this.props;
     if (!window.localStorage.token) {
       history.push("/login");
     }
@@ -194,6 +199,25 @@ class Dashboard extends React.Component {
             >
               Dashboard
             </Typography>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: indigo[500] }}
+              className={classes.button}
+              onClick={() => changeColor(indigo[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: red[500] }}
+              className={classes.button}
+              onClick={() => changeColor(red[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: lightGreen[500] }}
+              className={classes.button}
+              onClick={() => changeColor(lightGreen[500])}
+            />
+
             <IconButton
               onClick={() => {
                 clearUser();

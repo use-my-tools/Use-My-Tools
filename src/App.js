@@ -7,22 +7,34 @@ import Dashboard from "./containers/Dashboard";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import lightGreen from "@material-ui/core/colors/lightGreen";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: { main: lightGreen[500] },
-    type: "dark"
-  },
-  typography: { useNextVariants: true }
-});
-
 class App extends Component {
+  state = {
+    main: `${lightGreen[500]}`
+  };
+
+  changeColor = color => {
+    this.setState({ main: color });
+  };
+
   render() {
+    const theme = createMuiTheme({
+      palette: {
+        primary: this.state,
+        type: "dark"
+      },
+      typography: { useNextVariants: true }
+    });
     return (
       <MuiThemeProvider theme={theme}>
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" render={props => <Dashboard {...props} />} />
+        <Route
+          path="/dashboard"
+          render={props => (
+            <Dashboard changeColor={this.changeColor} {...props} />
+          )}
+        />
       </MuiThemeProvider>
     );
   }
