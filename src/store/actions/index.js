@@ -133,7 +133,7 @@ export const handleSearch = search => dispatch => {
   dispatch({ type: LOADING });
 
   axios
-    .get(`http://tools-backend.herokuapp.com/api/tools/?name=${search}`)
+    .get(`https://tools-backend.herokuapp.com/api/tools/?name=${search}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
     .catch(error =>
       dispatch({
