@@ -105,6 +105,7 @@ const styles = theme => ({
   },
   card: {
     height: "100%",
+    minWidth: 245,
     display: "flex",
     flexDirection: "column"
   },
