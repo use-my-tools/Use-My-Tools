@@ -249,7 +249,6 @@ class Dashboard extends React.Component {
             this.state.open && classes.appBarShift
           )}
         >
-          {isLoading && <Loader />}
           <Toolbar
             disableGutters={!this.state.open}
             className={classes.toolbar}
@@ -311,6 +310,7 @@ class Dashboard extends React.Component {
               <LockOutlinedIcon />
             </IconButton>
           </Toolbar>
+          {isLoading && <Loader />}
         </AppBar>
         <Snack
           open={open}

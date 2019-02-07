@@ -35,7 +35,6 @@ const NavBar = props => {
   }
   return (
     <AppBar position="static" className={classes.appBar}>
-      {isLoading && <Loader />}
       <Toolbar>
         <CameraIcon className={classes.icon} />
         <Typography
@@ -65,6 +64,7 @@ const NavBar = props => {
         message={message}
         variant={variant}
       />
+      {isLoading && <Loader />}
     </AppBar>
   );
 };
