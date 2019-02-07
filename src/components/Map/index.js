@@ -35,7 +35,7 @@ class MapClient extends React.Component {
           <AnyReactComponent
             lat={this.state.lat}
             lng={this.state.lng}
-            text={"Kreyser Avrora"}
+            text={"You Are Here!"}
           />
         </GoogleMapReact>
       </div>
