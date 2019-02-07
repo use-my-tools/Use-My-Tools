@@ -224,6 +224,8 @@ export const getTools = () => dispatch => {
 
 export const uploadImages = (tool_id, image) => dispatch => {
   dispatch({ type: LOADING });
+  console.log(image);
+
   let formData = new FormData();
   formData.append("image", image);
   formData.append("tool_id", tool_id);
@@ -233,12 +235,12 @@ export const uploadImages = (tool_id, image) => dispatch => {
       dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: res.data });
       window.location.href = "/dashboard/mytools";
     })
-    .catch(error =>
+    .catch(error => {
       dispatch({
         type: IMAGE_UPLOAD_FAILED,
-        payload: error.response.data.message
-      })
-    );
+        payload: "Image connot be empty"
+      });
+    });
 };
 
 export const getOneTool = id => dispatch => {
