@@ -9,7 +9,7 @@ import { getOneTool, rentTool } from "../../store/actions/index";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Badge from "@material-ui/core/Badge";
-
+import Map from "../../components/Map";
 const styles = theme => ({
   root: {
     display: "flex",
@@ -45,6 +45,9 @@ const styles = theme => ({
   },
   text: {
     padding: 30
+  },
+  map: {
+    margin: "20px 45px"
   }
 });
 
@@ -55,70 +58,75 @@ class SingleLineGridList extends React.Component {
   render() {
     const { classes, oneTool, rentTool } = this.props;
     return (
-      <Grid container className={classes.root} spacing={16}>
-        <Grid item xs={12}>
-          <Grid
-            container
-            className={classes.demo}
-            justify="center"
-            spacing={32}
-          >
-            <Grid item>
-              <Paper className={classes.paperCarousel}>
-                {oneTool && oneTool.images ? (
-                  <Badge
-                    badgeContent={
-                      oneTool.isAvailable ? "AVAILABLE" : "NOT AVAILABLE"
-                    }
-                    color={oneTool.isAvailable ? "primary" : "secondary"}
+      <>
+        <Grid container className={classes.root} spacing={16}>
+          <Grid item xs={12}>
+            <Grid
+              container
+              className={classes.demo}
+              justify="center"
+              spacing={32}
+            >
+              <Grid item>
+                <Paper className={classes.paperCarousel}>
+                  {oneTool && oneTool.images ? (
+                    <Badge
+                      badgeContent={
+                        oneTool.isAvailable ? "AVAILABLE" : "NOT AVAILABLE"
+                      }
+                      color={oneTool.isAvailable ? "primary" : "secondary"}
+                    >
+                      <Carousel toolImages={oneTool.images} />
+                    </Badge>
+                  ) : (
+                    <h1>NO IMAGES FOUND</h1>
+                  )}
+                </Paper>
+              </Grid>
+              <Grid item>
+                <Paper className={classes.paper}>
+                  <Typography
+                    className={classes.text}
+                    component="h5"
+                    variant="h5"
                   >
-                    <Carousel toolImages={oneTool.images} />
-                  </Badge>
-                ) : (
-                  <h1>NO IMAGES FOUND</h1>
-                )}
-              </Paper>
-            </Grid>
-            <Grid item>
-              <Paper className={classes.paper}>
-                <Typography
-                  className={classes.text}
-                  component="h5"
-                  variant="h5"
-                >
-                  {oneTool.name}
-                </Typography>
+                    {oneTool.name}
+                  </Typography>
 
-                <Typography variant="subtitle1" color="textSecondary">
-                  {oneTool.category}
-                </Typography>
-                <Typography component="h5" variant="h5">
-                  {oneTool.brand}
-                </Typography>
-                <Typography component="p">{oneTool.address}</Typography>
-                <Typography component="p">{oneTool.description}</Typography>
-                <Typography
-                  className={classes.text}
-                  color="primary"
-                  component="h5"
-                  variant="h5"
-                >
-                  ${oneTool.dailyCost}
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  disabled={!oneTool.isAvailable}
-                  onClick={() => rentTool(oneTool.id)}
-                >
-                  Rent Now!
-                </Button>
-              </Paper>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {oneTool.category}
+                  </Typography>
+                  <Typography component="h5" variant="h5">
+                    {oneTool.brand}
+                  </Typography>
+                  <Typography component="p">{oneTool.address}</Typography>
+                  <Typography component="p">{oneTool.description}</Typography>
+                  <Typography
+                    className={classes.text}
+                    color="primary"
+                    component="h5"
+                    variant="h5"
+                  >
+                    ${oneTool.dailyCost}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    disabled={!oneTool.isAvailable}
+                    onClick={() => rentTool(oneTool.id)}
+                  >
+                    Rent Now!
+                  </Button>
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+        <Paper className={classes.map} elevation={5}>
+          <Map />
+        </Paper>
+      </>
     );
   }
 }

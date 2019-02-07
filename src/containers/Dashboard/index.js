@@ -36,7 +36,7 @@ import Snack from "../../components/Snack";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
-
+import MapClient from "../../components/Map";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -362,6 +362,7 @@ class Dashboard extends React.Component {
           <Route exact path="/dashboard/mytools" component={MyTools} />
           <Route exact path="/dashboard/profile" component={UserProfile} />
           <Route exact path="/dashboard/renting" component={RentedTools} />
+          <Route exact path="/dashboard/map" component={MapClient} />
         </main>
       </div>
     );
