@@ -56,7 +56,7 @@ class TextMobileStepper extends React.Component {
           src={
             toolImages.length > 0
               ? toolImages[activeStep].url
-              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMiGwvVqOrf4Fd0Iak4ylgLN-bDbdZBJgXmxtiRotZ5-XMglRX"
+              : "https://openclipart.org/image/2400px/svg_to_png/298157/CrossedTools.png"
           }
           alt={""}
         />
