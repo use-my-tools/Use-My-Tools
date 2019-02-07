@@ -238,7 +238,7 @@ export const uploadImages = (tool_id, image) => dispatch => {
     .catch(error => {
       dispatch({
         type: IMAGE_UPLOAD_FAILED,
-        payload: "Image connot be empty"
+        payload: "Image cannot be empty"
       });
     });
 };
