@@ -1,8 +1,6 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
+import Badge from "@material-ui/core/Badge";
 class MapClient extends React.Component {
   state = { lat: 59.955413, lng: 30.337844 };
 
@@ -32,10 +30,11 @@ class MapClient extends React.Component {
           center={this.state}
           zoom={this.props.zoom}
         >
-          <AnyReactComponent
+          <Badge
             lat={this.state.lat}
             lng={this.state.lng}
-            text={"You Are Here!"}
+            badgeContent="Here"
+            color={"secondary"}
           />
         </GoogleMapReact>
       </div>
