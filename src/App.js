@@ -1,26 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import LandingPage from "./containers/LandingPage";
+import Login from "./containers/Login";
+import Register from "./containers/Register";
+import Dashboard from "./containers/Dashboard";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import lightGreen from "@material-ui/core/colors/lightGreen";
 
 class App extends Component {
+  state = {
+    main: `${lightGreen[500]}`
+  };
+
+  changeColor = color => {
+    this.setState({ main: color });
+  };
+
   render() {
+    const theme = createMuiTheme({
+      palette: {
+        primary: this.state,
+        type: "dark"
+      },
+      typography: { useNextVariants: true }
+    });
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route
+          path="/dashboard"
+          render={props => (
+            <Dashboard changeColor={this.changeColor} {...props} />
+          )}
+        />
+      </MuiThemeProvider>
     );
   }
 }
