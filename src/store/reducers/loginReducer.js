@@ -31,7 +31,9 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_ALL_PROFILES_SUCCESS,
   HANDLE_SEARCH_CHANGE,
-  GET_RENTED_TOOLS_SUCCESS
+  GET_RENTED_TOOLS_SUCCESS,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAILED
 } from "../types/index";
 
 const initialState = {
@@ -80,6 +82,23 @@ const initialState = {
 
 const login = (state = initialState, action) => {
   switch (action.type) {
+    case PASSWORD_RESET_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        message: action.payload,
+        variant: "success"
+      };
+
+    case PASSWORD_RESET_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        open: true,
+        message: action.payload,
+        variant: "error"
+      };
     case GET_RENTED_TOOLS_SUCCESS:
       return {
         ...state,
