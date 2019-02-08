@@ -8,6 +8,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 const styles = theme => ({
   root: {
+    minWidth: 250,
     maxWidth: 400,
     flexGrow: 1
   },
