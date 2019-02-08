@@ -5,11 +5,12 @@ import Login from "./containers/Login";
 import Register from "./containers/Register";
 import Dashboard from "./containers/Dashboard";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import lightGreen from "@material-ui/core/colors/lightGreen";
+import cyan from "@material-ui/core/colors/cyan";
+import PasswordReset from "./containers/PasswordReset";
 
 class App extends Component {
   state = {
-    main: `${lightGreen[500]}`
+    main: `${cyan[500]}`
   };
 
   changeColor = color => {
@@ -28,6 +29,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
+        <Route path="/passwordreset" component={PasswordReset} />
         <Route path="/register" component={Register} />
         <Route
           path="/dashboard"

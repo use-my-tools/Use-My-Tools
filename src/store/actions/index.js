@@ -31,9 +31,36 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_ALL_PROFILES_SUCCESS,
   HANDLE_SEARCH_CHANGE,
-  GET_RENTED_TOOLS_SUCCESS
+  GET_RENTED_TOOLS_SUCCESS,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAILED
 } from "../types/index";
 
+export const passwordReset = email => dispatch => {
+  dispatch({ type: LOADING });
+
+  const config = {
+    headers: {
+      Authorization: window.localStorage.token
+    }
+  };
+
+  axios
+    .post(
+      `https://tools-backend.herokuapp.com/api/registration/passwordreset`,
+      { email },
+      config
+    )
+    .then(res => {
+      dispatch({ type: PASSWORD_RESET_SUCCESS, payload: res.data.message });
+    })
+    .catch(error => {
+      dispatch({
+        type: PASSWORD_RESET_FAILED,
+        payload: error.response.data.message
+      });
+    });
+};
 export const returnTool = id => dispatch => {
   dispatch({ type: LOADING });
   const config = {
@@ -106,7 +133,7 @@ export const handleSearch = search => dispatch => {
   dispatch({ type: LOADING });
 
   axios
-    .get(`http://tools-backend.herokuapp.com/api/tools/?name=${search}`)
+    .get(`https://tools-backend.herokuapp.com/api/tools/?name=${search}`)
     .then(res => dispatch({ type: GET_TOOLS_SUCCESS, payload: res.data }))
     .catch(error =>
       dispatch({

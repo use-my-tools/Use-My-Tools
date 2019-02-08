@@ -4,8 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -14,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser, handleChange } from "../../store/actions";
+import { loginUser, handleChange, passwordReset } from "../../store/actions";
 import NavBar from "../../components/NavBar";
 
 const styles = theme => ({
@@ -58,7 +56,7 @@ const styles = theme => ({
 });
 
 function SignIn(props) {
-  const { classes, error, user, loginUser, handleChange, history } = props;
+  const { classes, user, passwordReset, handleChange, history } = props;
 
   if (window.localStorage.token) {
     history.push("/dashboard");
@@ -74,51 +72,33 @@ function SignIn(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Reset Password
           </Typography>
           <form
             onSubmit={e => {
               e.preventDefault();
-              loginUser(user);
+              passwordReset(user.email);
             }}
             className={classes.form}
           >
             <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="username">Username</InputLabel>
+              <InputLabel htmlFor="username">Email</InputLabel>
               <Input
                 id="username"
-                name="username"
+                name="email"
                 autoComplete="username"
                 autoFocus
-                value={user.username}
+                value={user.email}
                 onChange={handleChange}
               />
             </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={user.password}
-                onChange={handleChange}
-              />
-            </FormControl>
-            {error && (
-              <small style={{ color: "red", display: "block" }}>{error}</small>
-            )}
 
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Link className={classes.registerLink} to="/register">
-              Don't Have an Account? Sign Up
+            <Link className={classes.registerLink} to="/login">
+              Login
             </Link>
-            <Link className={classes.registerLink} to="/passwordreset">
+            {/* <Link className={classes.registerLink} to="/passwordreset">
               Reset Password
-            </Link>
+            </Link> */}
             <Button
               type="submit"
               fullWidth
@@ -126,7 +106,7 @@ function SignIn(props) {
               color="primary"
               className={classes.submit}
             >
-              Sign in
+              Send Email
             </Button>
           </form>
         </Paper>
@@ -147,5 +127,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser, handleChange }
+  { loginUser, handleChange, passwordReset }
 )(withStyles(styles)(SignIn));

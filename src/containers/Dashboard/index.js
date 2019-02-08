@@ -30,6 +30,10 @@ import Loader from "../../components/Loader";
 import UserProfile from "../../components/UserProfile";
 import lightGreen from "@material-ui/core/colors/lightGreen";
 import indigo from "@material-ui/core/colors/indigo";
+import brown from "@material-ui/core/colors/brown";
+import teal from "@material-ui/core/colors/teal";
+import cyan from "@material-ui/core/colors/cyan";
+import blue from "@material-ui/core/colors/blue";
 import red from "@material-ui/core/colors/red";
 import Button from "@material-ui/core/Button";
 import Snack from "../../components/Snack";
@@ -185,6 +189,9 @@ const styles = theme => ({
     [theme.breakpoints.up("md")]: {
       width: 200
     }
+  },
+  marginSpace: {
+    marginBottom: 20
   }
 });
 
@@ -242,7 +249,6 @@ class Dashboard extends React.Component {
             this.state.open && classes.appBarShift
           )}
         >
-          {isLoading && <Loader />}
           <Toolbar
             disableGutters={!this.state.open}
             className={classes.toolbar}
@@ -304,6 +310,7 @@ class Dashboard extends React.Component {
               <LockOutlinedIcon />
             </IconButton>
           </Toolbar>
+          {isLoading && <Loader />}
         </AppBar>
         <Snack
           open={open}
@@ -335,24 +342,50 @@ class Dashboard extends React.Component {
           <Typography variant="h4" gutterBottom component="h2">
             Welcome {window.localStorage.firstname.toUpperCase()}!
           </Typography>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: indigo[500] }}
-            className={classes.button}
-            onClick={() => changeColor(indigo[500])}
-          />
-          <Button
-            variant="contained"
-            style={{ backgroundColor: red[500] }}
-            className={classes.button}
-            onClick={() => changeColor(red[500])}
-          />
-          <Button
-            variant="contained"
-            style={{ backgroundColor: lightGreen[500] }}
-            className={classes.button}
-            onClick={() => changeColor(lightGreen[500])}
-          />
+          <div className={classes.marginSpace}>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: indigo[500] }}
+              className={classes.button}
+              onClick={() => changeColor(indigo[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: red[500] }}
+              className={classes.button}
+              onClick={() => changeColor(red[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: lightGreen[500] }}
+              className={classes.button}
+              onClick={() => changeColor(lightGreen[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: blue[500] }}
+              className={classes.button}
+              onClick={() => changeColor(blue[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: cyan[500] }}
+              className={classes.button}
+              onClick={() => changeColor(cyan[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: teal[500] }}
+              className={classes.button}
+              onClick={() => changeColor(teal[500])}
+            />
+            <Button
+              variant="contained"
+              style={{ backgroundColor: brown[700] }}
+              className={classes.button}
+              onClick={() => changeColor(brown[700])}
+            />
+          </div>
           <Route exact path="/dashboard" component={Items} />
           <Route
             exact

@@ -112,7 +112,10 @@ const styles = theme => ({
     paddingTop: "56.25%" // 16:9
   },
   cardContent: {
-    flexGrow: 1
+    flexGrow: 1,
+    maxHeight: 100,
+    minHeight: 100,
+    overflow: "hidden"
   },
   avatar: {
     margin: 10

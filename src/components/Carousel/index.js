@@ -8,6 +8,7 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
 const styles = theme => ({
   root: {
+    minWidth: 250,
     maxWidth: 400,
     flexGrow: 1
   },
@@ -56,7 +57,7 @@ class TextMobileStepper extends React.Component {
           src={
             toolImages.length > 0
               ? toolImages[activeStep].url
-              : "https://www.pappasbros.gr/images/no-image.jpg"
+              : "https://openclipart.org/image/2400px/svg_to_png/298157/CrossedTools.png"
           }
           alt={""}
         />
